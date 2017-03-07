@@ -1,0 +1,22 @@
+.img-circle {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0 10px 10px 10px;
+}
+.img-circle-text {
+  color: #000;
+  font-size: 16pt;
+}
+
+.skorch-downloads {
+  text-decoration:none;
+  color:#000;
+  border-radius: 20px;
+}
+
+.skorch-downloads:hover{
+  opacity: 0.6;
+  text-decoration: none;
+  color:#000;
+}
