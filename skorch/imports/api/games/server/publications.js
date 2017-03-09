@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import Documents from '../games';
+import Games from '../games';
 
 Meteor.publish('games.list', () => Games.find());
 

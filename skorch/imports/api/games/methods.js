@@ -1,12 +1,16 @@
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import Documents from './games';
+import Games from './games';
 import rateLimit from '../../modules/rate-limit.js';
 
 export const upsertGame = new ValidatedMethod({
   name: 'game.upsert',
   validate: new SimpleSchema({
     _id: { type: String, optional: true },
+    gameTitle: {
+      type: String,
+      optional: true,
+    },
     gamePhrasePublic: { type: String,
       optional: true,
     },
