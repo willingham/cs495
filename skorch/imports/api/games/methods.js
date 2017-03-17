@@ -5,30 +5,11 @@ import rateLimit from '../../modules/rate-limit.js';
 
 export const upsertGame = new ValidatedMethod({
   name: 'game.upsert',
-  validate: new SimpleSchema({
-    _id: { type: String, optional: true },
-    gameTitle: {
-      type: String,
-      optional: true,
-    },
-    gamePhrasePublic: { type: String,
-      optional: true,
-    },
-    gamePhrasePrivate: {
-      type: String,
-      optional: true,
-    },
-    gameType: {
-      type: String,
-      optional: true,
-    },
-    gameWinner: {
-      type: String,
-      optional: true,
-    }
-  }).validator(),
+  validate: Games.schema.validator(),
   run(game) {
-    return Games.upsert({ _id: game._id }, { $set: game });
+    let _id = game._id;
+    if (game._id) delete game._id;
+    return Games.upsert({ _id: _id }, { $set: game });
   },
 });
 

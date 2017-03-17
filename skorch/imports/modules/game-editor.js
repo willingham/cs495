@@ -16,6 +16,7 @@ const handleUpsert = () => {
     gamePhrasePrivate: document.querySelector('[name="gamePhrasePrivate"]').value.trim(),
     gameType: document.querySelector('[name="gameType"]').value.trim(),
     gameWinner: document.querySelector('[name="gameWinner"]').value.trim(),
+    gameData: {},
   };
 
   if (doc && doc._id) upsert._id = doc._id;

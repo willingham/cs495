@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Accounts } from 'meteor/accounts-base';
+import Games from '../../api/games/games.js';
 
 if (!Meteor.isProduction) {
   const users = [{
@@ -20,4 +21,23 @@ if (!Meteor.isProduction) {
       Roles.addUsersToRoles(userId, roles);
     }
   });
+
+  const gameData = {
+    "players":[
+      {"player":'Bob', "score":2},
+      {"player":'Suzy', "score":1}
+    ]
+  };
+  const games = [{
+    gameTitle: 'Test Game',
+    gamePhrasePublic: 'Galloping Green Jalopy',
+    gamePhrasePrivate: 'Roving Red Rabbit',
+    gameType: 'Leader Board',
+    gameWinner: 'Bob',
+    gameData: gameData
+  }];
+
+  games.forEach((game) => {
+    Games.upsert({gamePhrasePublic: game.gamePhrasePublic}, {$set: game});
+  })
 }

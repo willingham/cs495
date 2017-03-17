@@ -17,7 +17,23 @@ Games.deny({
   remove: () => true,
 });
 
+let player = new SimpleSchema({
+  player: {
+    type:String
+  },
+  score: {
+    type: Number
+  }
+});
+let gameOptions = new SimpleSchema({
+  players: {
+    type:[player],
+    optional: true
+  }
+});
+
 Games.schema = new SimpleSchema({
+  _id: { type: String, optional: true },
   gameTitle: {
     type: String,
     label: 'The title of the game.',
@@ -37,6 +53,10 @@ Games.schema = new SimpleSchema({
   gameWinner: {
     type: String,
     label: 'The winner of the game.',
+  },
+  gameData: {
+    type: gameOptions,
+    optional: true
   }
 });
 
@@ -48,4 +68,5 @@ Factory.define('game', Games, {
   gamePhrasePrivate: () => 'Private game phrase',
   gameType: () => 'Type of game',
   gameWinner: () => 'Winner of game',
+  gameData: () => 'Metadata of game',
 });
