@@ -5,10 +5,11 @@ import LeaderBoard from '../pages/LeaderBoardGame.js';
 import Loading from '../components/Loading.js';
 
 const composer = ({params}, onData) => {
-  const subscription = Meteor.subscribe('games.phrase', params._phrase);
+  const gamePhrase = params._phrase.toLowerCase();
+  const subscription = Meteor.subscribe('games.phrase', gamePhrase);
   if (subscription.ready()) {
-    const game = Games.findOne({$or:[{gamePhrasePublic:params._phrase}, {gamePhrasePrivate:params._phrase}]});
-    const everything = {game:game, phrase:params._phrase};
+    const game = Games.findOne({$or:[{gamePhrasePublic:gamePhrase}, {gamePhrasePrivate:gamePhrase}]});
+    const everything = {game:game, phrase:gamePhrase};
     onData(null, {everything});
   }
 };
