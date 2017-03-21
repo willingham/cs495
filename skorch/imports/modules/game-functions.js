@@ -5,21 +5,12 @@ import './validation.js';
 
 let component;
 
-const addPoint = (player) => {
-  let doc = component;
-  const upsert = {
-    gameTitle: doc.gameTitle,
-    gamePhrasePublic: doc.gamePhrasePublic,
-    gamePhrasePrivate: doc.gamePhrasePrivate,
-    gameType: doc.gameType,
-    gameWinner: doc.gameWinner,
-    gameData: doc.gameData
-  };
-  if (doc && doc._id) upsert._id = doc._id;
+const addPoint = (player, value) => {
+  const upsert = component;
 
   upsert.gameData.players.forEach((element) => {
     if (element["player"] == player)
-      element["score"] += 1;
+      element["score"] += value;
   });
   upsertGame.call(upsert, (error) => {
     if (error)
@@ -61,12 +52,12 @@ const addPlayer = () => {
   });
 };
 
-export function lbAddPoint(options) {
+export function AddPoint(options) {
   component = options.component;
-  addPoint(options.player)
+  addPoint(options.player, options.value)
 }
 
-export function lbAddPlayer(options) {
+export function AddPlayer(options) {
   component = options.component;
   addPlayer();
 }
