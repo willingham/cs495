@@ -1,6 +1,6 @@
 import {browserHistory} from 'react-router';
 import {Bert} from 'meteor/themeteorchef:bert';
-import {upsertGame} from '../api/games/methods.js';
+import {upsertGame, gamePhraseExists} from '../api/games/methods.js';
 import './validation.js';
 
 let component;
@@ -60,4 +60,8 @@ export function AddPoint(options) {
 export function AddPlayer(options) {
   component = options.component;
   addPlayer();
+}
+
+export function IsValidGamePhrase(phrase) {
+  return gamePhraseExists(phrase);
 }
