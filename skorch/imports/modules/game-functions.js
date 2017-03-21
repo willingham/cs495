@@ -53,7 +53,7 @@ const addPlayer = () => {
 };
 
 export function AddPoint(options) {
-  component = options.component;
+  component = options.game;
   addPoint(options.player, options.value)
 }
 

@@ -8,7 +8,8 @@ const composer = ({params}, onData) => {
   const subscription = Meteor.subscribe('games.phrase', params._phrase);
   if (subscription.ready()) {
     const game = Games.findOne({$or:[{gamePhrasePublic:params._phrase}, {gamePhrasePrivate:params._phrase}]});
-    onData(null, {game});
+    const everything = {game:game, phrase:params._phrase};
+    onData(null, {everything});
   }
 };
 
