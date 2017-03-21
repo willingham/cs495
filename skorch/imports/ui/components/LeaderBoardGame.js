@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, Button, Alert, Table } from 'react-bootstrap';
-import {lbAddPoint, lbAddPlayer} from '../../modules/leader-board-game.js';
+import {AddPoint} from '../../modules/game-functions.js';
 
 export class LeaderBoardScoreBoard extends React.Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ export class LeaderBoardScoreBoard extends React.Component {
           <thead><tr><th>Name</th><th>Score</th></tr></thead>
           <tbody>
           {game.gameData.players.map(({player, score}) => (
-            <tr key={player} onClick={()=>lbAddPoint({component: game, player: player})}>
+            <tr key={player} onClick={()=>AddPoint({component: game, player: player, value: 1})}>
               <td>{player}</td>
               <td>{score}</td>
             </tr>
@@ -31,29 +31,3 @@ LeaderBoardScoreBoard.propTypes = {
   game: React.PropTypes.object,
 };
 
-export class LeaderBoardAddPlayer extends React.Component {
-  componentDidMount() {
-  }
-  render () {
-    const {game} = this.props;
-    return(
-      <div>
-        <FormGroup>
-          <ControlLabel>New Player Name</ControlLabel>
-          <FormControl
-            type="text"
-            name="playerName"
-            defaultValue=""
-          />
-        </FormGroup>
-        <Button
-          bsStyle="success"
-          onClick={()=>lbAddPlayer({component:game})}
-        >Add Player</Button>
-      </div>
-    )
-  }
-}
-LeaderBoardAddPlayer.propTypes = {
-  game: React.PropTypes.object,
-};

@@ -1,10 +1,11 @@
 import React from 'react';
-import {LeaderBoardScoreBoard, LeaderBoardAddPlayer} from '../components/LeaderBoardGame.js';
+import {LeaderBoardScoreBoard} from '../components/LeaderBoardGame.js';
+import {AddPlayerComponent} from '../components/GenericGameParts.js';
 
 const LeaderBoardGameScreen = ({ game }) => (
   <div>
-    <h4 className="page-header">Leader Board for {game.gameTitle}</h4>
-    <LeaderBoardAddPlayer game={game} />
+    <h4 className="page-header">Leader Board for {game.gameTitle}!</h4>
+    <AddPlayerComponent game={game} />
     <LeaderBoardScoreBoard game={game} />
   </div>
 );
