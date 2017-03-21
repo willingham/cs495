@@ -12,8 +12,8 @@ const handleUpsert = () => {
   const confirmation = doc && doc._id ? 'Game updated!' : 'Game added!';
   const upsert = {
     gameTitle: document.querySelector('[name="gameTitle"]').value.trim(),
-    gamePhrasePublic: document.querySelector('[name="gamePhrasePublic"]').value.trim(),
-    gamePhrasePrivate: document.querySelector('[name="gamePhrasePrivate"]').value.trim(),
+    gamePhrasePublic: document.querySelector('[name="gamePhrasePublic"]').value.trim().toLowerCase(),
+    gamePhrasePrivate: document.querySelector('[name="gamePhrasePrivate"]').value.trim().toLowerCase(),
     gameType: document.querySelector('[name="gameType"]').value.trim(),
     gameWinner: document.querySelector('[name="gameWinner"]').value.trim(),
     gameData: {},

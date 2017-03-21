@@ -30,8 +30,8 @@ if (!Meteor.isProduction) {
   };
   const games = [{
     gameTitle: 'Test Game',
-    gamePhrasePublic: 'Galloping Green Jalopy',
-    gamePhrasePrivate: 'Roving Red Rabbit',
+    gamePhrasePublic: 'galloping green jalopy',
+    gamePhrasePrivate: 'roving red rabbit',
     gameType: 'Leader Board',
     gameWinner: 'Bob',
     gameData: gameData
