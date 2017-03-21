@@ -8,9 +8,9 @@ const handleNav = (_id) => {
 
 const GamesList = ({ games }) => (
   games.length > 0 ? <ListGroup className="GamesList">
-    {games.map(({ _id, gameType }) => (
+    {games.map(({ _id, gameTitle }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { gameType }
+        { gameTitle }
       </ListGroupItem>
     ))}
   </ListGroup> :

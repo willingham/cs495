@@ -25,14 +25,15 @@ export default class GameEditor extends React.Component {
           placeholder="My awesome game"
         />
       </FormGroup>
-      <FormGroup>
+      <FormGroup controlId="formControlsSelect">
         <ControlLabel>Game Type</ControlLabel>
-        <FormControl
-          type="text"
-          name="gameType"
-          defaultValue={ doc && doc.gameType }
-          placeholder="Basketball, leaderboard, golf, etc..."
-        />
+        <FormControl componentClass="select" placeholder="select game type" name="gameType">
+          <option>select</option>
+          <option value="leaderboard">Leaderboard</option>
+          <option value="gameType1">Game Type 1</option>
+          <option value="gameType2">Game Type 2</option>
+          <option value="other">...</option>
+        </FormControl>
       </FormGroup>
       <FormGroup>
         <ControlLabel>Public Game Phrase</ControlLabel>
@@ -40,7 +41,7 @@ export default class GameEditor extends React.Component {
           type="text"
           name="gamePhrasePublic"
           defaultValue={ doc && doc.gamePhrasePublic }
-          placeholder="jubilantPrancingReigndeer"
+          placeholder="jubilantPrancingReindeer"
         />
       </FormGroup>
       <FormGroup>
