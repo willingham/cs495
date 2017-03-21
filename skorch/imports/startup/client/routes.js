@@ -43,7 +43,7 @@ Meteor.startup(() => {
         <Route name="newGame" path="/games/new" component={ NewGame } onEnter={ authenticate } />
         <Route name="editGame" path="/games/:_id/edit" component={ EditGame } onEnter={ authenticate } />
         <Route name="viewGame" path="/games/:_id" component={ ViewGame } onEnter={ authenticate } />
-        <Route name="leaderBoardGame" path="/play/:_id" component={ LeaderBoardGame } onEnter= {authenticate} />
+        <Route name="leaderBoardGame" path="/play/:_phrase" component={ LeaderBoardGame } onEnter= {authenticate} />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
         <Route name="reset-password" path="/reset-password/:token" component={ ResetPassword } />

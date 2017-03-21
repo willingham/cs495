@@ -5,9 +5,9 @@ import LeaderBoard from '../pages/LeaderBoardGame.js';
 import Loading from '../components/Loading.js';
 
 const composer = ({params}, onData) => {
-  const subscription = Meteor.subscribe('games.view', params._id);
+  const subscription = Meteor.subscribe('games.phrase', params._phrase);
   if (subscription.ready()) {
-    const game = Games.findOne(params._id);
+    const game = Games.findOne({$or:[{gamePhrasePublic:params._phrase}, {gamePhrasePrivate:params._phrase}]});
     onData(null, {game});
   }
 };

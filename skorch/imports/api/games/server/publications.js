@@ -8,3 +8,8 @@ Meteor.publish('games.view', (_id) => {
   check(_id, String);
   return Games.find(_id);
 });
+
+Meteor.publish('games.phrase', (_phrase) => {
+  check(_phrase, String);
+  return Games.find({$or: [{gamePhrasePublic: _phrase}, {gamePhrasePrivate:_phrase}]});
+});
