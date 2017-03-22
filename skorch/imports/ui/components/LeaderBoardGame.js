@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl, Button, Alert, Table } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, ButtonToolbar, ButtonGroup, Button, Alert, Table, Glyphicon } from 'react-bootstrap';
 import {AddPoint} from '../../modules/game-functions.js';
 
 const checkGamePhraseAndAddPoints = (options) => {
@@ -41,17 +41,16 @@ export class PingPongScoreBoard extends React.Component {
     const {game, phrase} = this.props;
     return (
       (game.gameData && game.gameData.players && game.gameData.players.length > 0) ?
-        <Table striped bordered condensed hover>
-          <thead><tr><th>Name!</th><th>Score</th></tr></thead>
-          <tbody>
+        <ButtonToolbar>
           {game.gameData.players.map(({player, score}) => (
-            <tr key={player} onClick={()=>checkGamePhraseAndAddPoints({game: game, player: player, value: 1, phrase: phrase})}>
-              <td>{player}</td>
-              <td>{score}</td>
-            </tr>
+          <ButtonGroup>
+            <div> {player} </div>
+              <Button bsStyle="primary" onClick={()=>checkGamePhraseAndAddPoints({game: game, player: player, value: 1, phrase: phrase})}><Glyphicon glyph="plus" /></Button>
+              <Button>{score}</Button>
+              <Button bsStyle="primary" onClick={()=>checkGamePhraseAndAddPoints({game: game, player: player, value: -1, phrase: phrase})}><Glyphicon glyph="minus" /></Button>
+          </ButtonGroup>
           ))}
-          </tbody>
-        </Table>
+        </ButtonToolbar>
         :
         <Alert bsStyle="warning">No players yet.</Alert>
     );
