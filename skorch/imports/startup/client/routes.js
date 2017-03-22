@@ -46,9 +46,9 @@ Meteor.startup(() => {
         <Route name="newGame" path="/games/new" component={ NewGame } onEnter={ authenticate } />
         <Route name="editGame" path="/games/:_id/edit" component={ EditGame } onEnter={ authenticate } />
         <Route name="viewGame" path="/games/:_id" component={ ViewGame } onEnter={ authenticate } />
-        <Route name="leaderBoardGame" path="/play/:_phrase" component={ LeaderBoardGame } />
-        <Route name="Game" path="/game/:_phrase" component={ Game } />
-        <Route name="pingPongGame" path="/pingpong/:_phrase" component={ PingPongGame } />
+        /* <Route name="leaderBoardGame" path="/play/:_phrase" component={ LeaderBoardGame } />  not needed due to /game/:_phrase route
+        <Route name="pingPongGame" path="/pingpong/:_phrase" component={ PingPongGame } /> */
+        <Route name="Game" path="/game/:_phrase" component={ Game } /> // master page for all game types
         <Route name="join" path="/join" component={ JoinGame } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
