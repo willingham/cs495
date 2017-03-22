@@ -14,7 +14,7 @@ const GamesList = ({ games }) => (
       </ListGroupItem>
     ))}
   </ListGroup> :
-  <Alert bsStyle="warning">No documents yet.</Alert>
+  <Alert bsStyle="warning">No games yet.</Alert>
 );
 
 GamesList.propTypes = {

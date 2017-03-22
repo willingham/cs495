@@ -14,6 +14,7 @@ import NewGame from '../../ui/pages/NewGame.js';
 import EditGame from '../../ui/containers/EditGame.js';
 import ViewGame from '../../ui/containers/ViewGame.js';
 import LeaderBoardGame from '../../ui/containers/LeaderBoardGame.js';
+import PingPongGame from '../../ui/containers/PingPongGame.js';
 import Index from '../../ui/pages/Index.js';
 import Login from '../../ui/pages/Login.js';
 import NotFound from '../../ui/pages/NotFound.js';
@@ -45,6 +46,7 @@ Meteor.startup(() => {
         <Route name="editGame" path="/games/:_id/edit" component={ EditGame } onEnter={ authenticate } />
         <Route name="viewGame" path="/games/:_id" component={ ViewGame } onEnter={ authenticate } />
         <Route name="leaderBoardGame" path="/play/:_phrase" component={ LeaderBoardGame } />
+        <Route name="pingPongGame" path="/pingpong/:_phrase" component={ PingPongGame } />
         <Route name="join" path="/join" component={ JoinGame } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />

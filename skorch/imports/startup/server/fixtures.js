@@ -35,7 +35,16 @@ if (!Meteor.isProduction) {
     gameType: 'Leader Board',
     gameWinner: 'Bob',
     gameData: gameData
-  }];
+  },
+    {
+      gameTitle: 'Test Game 2',
+      gamePhrasePublic: 'black white cow',
+      gamePhrasePrivate: 'red white chicken',
+      gameType: 'Ping Pong',
+      gameWinner: 'Sue',
+      gameData: gameData
+    }
+  ];
 
   games.forEach((game) => {
     Games.upsert({gamePhrasePublic: game.gamePhrasePublic}, {$set: game});
