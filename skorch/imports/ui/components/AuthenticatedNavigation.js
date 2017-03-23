@@ -24,7 +24,8 @@ const AuthenticatedNavigation = () => (
     </Nav>
     <Nav pullRight>
       <NavDropdown eventKey={ 3 } title={ userName() } id="basic-nav-dropdown">
-        <MenuItem eventKey={ 3.1 } onClick={ handleLogout }>Logout</MenuItem>
+        <LinkContainer to="/games"><MenuItem eventKey={ 3.1 }>My Games</MenuItem></LinkContainer>
+        <MenuItem eventKey={ 3.2 } onClick={ handleLogout }>Logout</MenuItem>
       </NavDropdown>
     </Nav>
   </div>
