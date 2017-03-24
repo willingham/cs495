@@ -24,7 +24,7 @@ class JoinGame extends React.Component {
                             className="txtbx-enterGamePhrase"
                         />
                             <Button bsStyle="primary">Join Game</Button>
-                            <Button bsStyle="close" onClick={this.props.closeJoin}><span>&times;</span></Button>
+                            <Button onClick={this.props.closeJoin}><span>&times;</span></Button>
                     </FormGroup>
                 </Form>
             </div>
