@@ -3,6 +3,7 @@ import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { removeGame } from '../../api/games/methods.js';
+import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
 import LeaderBoardGame from './LeaderBoardGame.js';
 import PingPongGame from './PingPongGame.js';
 
@@ -31,16 +32,20 @@ const GetGamePage = (everything) => { /* returns component of correct game type 
     }
 };
 
-const AddGameButton = () => {  /* button for adding game to user profile */
+const AddGameButton = (phrase) => {  /* button for adding game to user profile */
     if (Meteor.user()) {
-        return <Button className="pull-right">Add to My Games</Button>
+        if (gameExistsInUserAccount(phrase.phrase)) {
+            return <Button className="pull-right" onClick={ () => { removeGameFromUserAccount(phrase.phrase) } }>Remove from My Games</Button>
+        } else {
+            return <Button className="pull-right" onClick={ () => { addGameToUserAccount(phrase.phrase) } }>Add to My Games</Button>
+        }
     }
     return null;
 };
 
 const Game = ({ everything }) => ( // top-level page for all games
         <div>
-            <AddGameButton />
+            <AddGameButton phrase={ everything.phrase } />
             <GetGamePage everything={everything} />
         </div>
 );
