@@ -23,6 +23,7 @@ import RecoverPassword from '../../ui/pages/RecoverPassword.js';
 import ResetPassword from '../../ui/pages/ResetPassword.js';
 import Signup from '../../ui/pages/Signup.js';
 import JoinGame from '../../ui/pages/JoinGame.js';
+import MyGames from '../../ui/pages/MyGames.js';
 
 const authenticate = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -49,6 +50,7 @@ Meteor.startup(() => {
         /* <Route name="leaderBoardGame" path="/play/:_phrase" component={ LeaderBoardGame } />  not needed due to /game/:_phrase route
         <Route name="pingPongGame" path="/pingpong/:_phrase" component={ PingPongGame } /> */
         <Route name="Game" path="/game/:_phrase" component={ Game } /> // master page for all game types
+        <Route name="MyGames" path="mygames" component={ MyGames } onEnter={ authenticate } />
         <Route name="join" path="/join" component={ JoinGame } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
