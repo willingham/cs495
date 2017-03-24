@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Image } from 'react-bootstrap';
 import { Link } from 'react-router';
 import PublicNavigation from './PublicNavigation.js';
 import AuthenticatedNavigation from './AuthenticatedNavigation.js';
@@ -10,7 +10,9 @@ const AppNavigation = ({ hasUser }) => (
   <Navbar>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/">skorch</Link>
+        <Link to="/">
+            <Image className="headerLogo" src="/favicon.png" rounded />
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
