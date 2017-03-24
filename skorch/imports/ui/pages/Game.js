@@ -25,7 +25,7 @@ const handleRemove = (_id) => {
 };
 
 const GetGamePage = (everything) => { /* returns component of correct game type */
-    if (everything.everything.game.gameType == 'Leader Board') {
+    if (everything.everything.game.gameType == 'leaderboard') {
         return <LeaderBoardGame everything={everything.everything} />
     } else if (everything.everything.game.gameType == 'Ping Pong') {
         return <PingPongGame everything={everything.everything} />
