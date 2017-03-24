@@ -29,10 +29,8 @@ export default class GameEditor extends React.Component {
         <ControlLabel>Game Type</ControlLabel>
         <FormControl componentClass="select" placeholder="select game type" name="gameType">
           <option>select</option>
-          <option value="leaderboard">Leaderboard</option>
-          <option value="gameType1">Game Type 1</option>
-          <option value="gameType2">Game Type 2</option>
-          <option value="other">...</option>
+          <option value="leaderboard">Leader Board</option>
+          <option value="pingpong">Ping Pong</option>
         </FormControl>
       </FormGroup>
       <FormGroup>

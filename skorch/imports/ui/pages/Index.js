@@ -23,7 +23,7 @@ class JoinGame extends React.Component {
                             onChange={ this.handleUpdate }
                             className="txtbx-enterGamePhrase"
                         />
-                            <Button bsStyle="primary">Join Game</Button>
+                            <Link to={'/game/' + this.state.gamePhrase }><Button bsStyle="primary">Join Game</Button></Link>
                             <Button onClick={this.props.closeJoin}><span>&times;</span></Button>
                     </FormGroup>
                 </Form>

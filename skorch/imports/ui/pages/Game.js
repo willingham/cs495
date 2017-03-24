@@ -30,6 +30,7 @@ const GetGamePage = (everything) => { /* returns component of correct game type 
     } else if (everything.everything.game.gameType == 'Ping Pong') {
         return <PingPongGame everything={everything.everything} />
     }
+    return null;
 };
 
 const AddGameButton = (phrase) => {  /* button for adding game to user profile */
