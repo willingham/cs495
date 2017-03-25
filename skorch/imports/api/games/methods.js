@@ -31,6 +31,16 @@ export const gamePhraseExists = (phrase) => {
     return false;
 };
 
+export const gamePhraseType = (phrase) => {
+    if (Games.findOne({gamePhrasePublic: phrase})) {
+        return 'public';
+    } else if (Games.findOne({gamePhrasePrivate: phrase})) {
+        return 'private';
+    } else {
+        return null;
+    }
+};
+
 rateLimit({
   methods: [
     upsertGame,

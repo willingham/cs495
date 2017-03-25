@@ -2,7 +2,7 @@ import React from 'react';
 import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { removeGame } from '../../api/games/methods.js';
+import { removeGame, gamePhraseType } from '../../api/games/methods.js';
 import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
 import LeaderBoardGame from './LeaderBoardGame.js';
 import PingPongGame from './PingPongGame.js';
