@@ -24,11 +24,25 @@ export const removeGame = new ValidatedMethod({
 });
 
 export const gamePhraseExists = (phrase) => {
-  //const match = Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
+  const match = Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
   if (true)
     return true;
   else
     return false;
+};
+
+export const getGameByPhraseAll = (phrase) => {   // returns entire game object from database (for debugging)
+  return Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
+};
+
+export const getGameByPhrase = (phrase) => {   // returns game w/o sensitive data
+  const game = Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
+  if (game) {
+      const gameLimited = {title: game.gameTitle, type: game.gameType, phrase: phrase, winner: game.gameWinner, data: game.gameData};
+      return gameLimited;
+  } else {
+      return null;
+  }
 };
 
 export const gamePhraseType = (phrase) => {
