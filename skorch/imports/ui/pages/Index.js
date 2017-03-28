@@ -23,8 +23,8 @@ class JoinGame extends React.Component {
                             onChange={ this.handleUpdate }
                             className="txtbx-enterGamePhrase"
                         />
-                            <Link to={'/game/' + this.state.gamePhrase }><Button bsStyle="primary">Join Game</Button></Link>
-                            <Button onClick={this.props.closeJoin}><span>&times;</span></Button>
+                            <Link to={'/game/' + this.state.gamePhrase }><Button bsStyle="primary" bsSize="large">Join Game</Button></Link>
+                            <Button bsSize="large" onClick={this.props.closeJoin}><span>&times;</span></Button>
                     </FormGroup>
                 </Form>
             </div>
@@ -36,9 +36,9 @@ class JoinGame extends React.Component {
 const Buttons = (props) => (
     <div className="homeNewJoinGame">
         <Link to="/games/new">
-            <Button bsStyle="success">New Game</Button>
+            <Button bsStyle="success" bsSize="large">New Game</Button>
         </Link>
-        <Button bsStyle="primary" onClick={props.onJoin}>Join Game</Button>
+        <Button bsStyle="primary" bsSize="large" onClick={props.onJoin}>Join Game</Button>
     </div>
 );
 
@@ -62,14 +62,46 @@ class NewJoinGame extends React.Component {
     }
 }
 
-const Index = () => (
-  <div className="Index">
-    <Jumbotron className="text-center">
-      <img src="/skorch-t72.png" width="40%"/>
-      <p>A skorekeeping app for everything!</p>
-      <NewJoinGame />
-    </Jumbotron>
-  </div>
-);
+class Index extends React.Component {
+	constructor() {
+        super();
+		var images=['img/track.jpg',
+					'img/chess.jpg',
+					'img/waterBalloons.jpg',
+					'img/tennis.jpg',
+					'img/scrabble.jpg',
+					'img/golf.jpg',
+					'img/basketball.jpg',
+					'img/cycling.jpg',
+					'img/fooseball.jpg',
+					'img/baseball.jpg',];
+        var randomNumber = Math.floor(Math.random() * images.length);
+		var bgImg = 'url(' + images[randomNumber] + ') no-repeat top center fixed';
+        this.state = { bg: bgImg };
+    }
+
+    componentDidMount() {
+		document.getElementById('backg').style.background = this.state.bg;
+		document.getElementById('backg').style.backgroundSize = "cover";
+    }
+
+    render() {
+        return (
+          <div>
+              <div id="backg"></div>
+              <div className="Index">
+                <div className="inner cover">
+                  <img src="/skorch-logo.png" width="40%"/>
+                  <p className="lead">A skorekeeping app for everything!</p>
+                  <NewJoinGame />
+                </div>
+              </div>
+          </div>
+        );
+    }
+}
+
+
+
 
 export default Index;
