@@ -9,6 +9,7 @@ if (!Meteor.isProduction) {
     password: 'password',
     profile: {
       name: { first: 'Carl', last: 'Winslow' },
+      games: [],
     },
     roles: ['admin'],
   }];
