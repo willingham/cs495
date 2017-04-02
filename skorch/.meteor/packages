@@ -35,6 +35,3 @@ dburles:factory@1.0.0
 ddp-rate-limiter@1.0.7
 shell-server@0.2.3
 msavin:mongol
-blockly:blockly
-blockly:blocks
-blockly:javascript

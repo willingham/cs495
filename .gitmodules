@@ -1,0 +1,3 @@
+[submodule "skorch/imports/modules/blockly"]
+	path = skorch/imports/modules/blockly
+	url = https://github.com/google/blockly.git
