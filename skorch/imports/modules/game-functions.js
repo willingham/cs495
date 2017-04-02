@@ -1,20 +1,35 @@
 import {browserHistory} from 'react-router';
 import {Bert} from 'meteor/themeteorchef:bert';
-import {upsertGame, gamePhraseExists} from '../api/games/methods.js';
+import {upsertGame, gamePhraseExists, gamePhraseType} from '../api/games/methods.js';
 import './validation.js';
 
 let component;
 
 const addPoint = (player, value) => {
-  const upsert = component;
+  var upsert = component;
+  var phrase = upsert.phrase;
+  console.log("###########");
+  console.log(upsert);
+  delete upsert.phrase;
+  console.log(upsert);
+  console.log(phrase);
+  console.log("###########");
+  if (gamePhraseType(phrase) === 'private') {
+      upsert["gamePhrasePrivate"] = phrase;
+  } else {
+      upsert['gamePhrasePublic'] = phrase;
+  }
+  
 
   upsert.gameData.players.forEach((element) => {
     if (element["player"] == player)
       element["score"] += value;
   });
   upsertGame.call(upsert, (error) => {
-    if (error)
+    if (error) {
+      console.log(error);
       Bert.alert(error.reason, 'danger');
+    }
     else {
       Bert.alert("Success", 'success');
     }

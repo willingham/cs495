@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { removeGame, gamePhraseType } from '../../api/games/methods.js';
 import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
-import LeaderBoardGame from './LeaderBoardGame.js';
+import LeaderBoardGameScreen from './LeaderBoardGame.js';
 import PingPongGame from './PingPongGame.js';
 
 const handleEdit = (_id) => {
@@ -25,16 +25,15 @@ const handleRemove = (_id) => {
 };
 
 const GetGamePage = (game) => { /* returns component of correct game type */
-    if (game.type == 'leaderboard') {
-        return <LeaderBoardGame game={ game } />
-    } else if (game.type == 'Ping Pong') {
+    if (game.game.gameType == 'leaderboard') {
+        return <LeaderBoardGameScreen game={ game } />
+    } else if (game.game.gameType == 'Ping Pong') {
         return <PingPongGame everything={everything.everything} />
     }
     return null;
 };
 
 const AddGameButton = (phrase) => {  /* button for adding game to user profile */
-    console.log(phrase);
     if (Meteor.user()) {
         if (gameExistsInUserAccount(phrase.phrase)) {
             return <Button className="pull-right" onClick={ () => { removeGameFromUserAccount(phrase.phrase) } }>Remove from My Games</Button>
@@ -48,7 +47,7 @@ const AddGameButton = (phrase) => {  /* button for adding game to user profile *
 const Game = ({ game }) => ( // top-level page for all games
         <div>
             <AddGameButton phrase={ game.phrase } />
-            <GetGamePage everything={ game } />
+            <GetGamePage game={ game } />
         </div>
 );
 

@@ -1,15 +1,17 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, ButtonToolbar, ButtonGroup, Button, Alert, Table, Glyphicon } from 'react-bootstrap';
 import {AddPoint} from '../../modules/game-functions.js';
+import { gamePhraseType } from '../../api/games/methods.js';
 
 const checkGamePhraseAndAddPoints = (options) => {
-  if (options.game.gamePhrasePrivate === options.phrase) {
+  if (gamePhraseType(options.phrase) === 'private' ) {
     AddPoint(options);
   }
 }
 
 export class LeaderBoardScoreBoard extends React.Component {
   componentDidMount() {
+      console.log(this.props);
   }
 
   render() {

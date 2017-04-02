@@ -10,6 +10,7 @@ let component;
 const handleUpsert = () => {
   const { doc } = component.props;
   const confirmation = doc && doc._id ? 'Game updated!' : 'Game added!';
+  const isNew = doc && doc._id ? true : false;
   const upsert = {
     gameTitle: document.querySelector('[name="gameTitle"]').value.trim(),
     gamePhrasePublic: document.querySelector('[name="gamePhrasePublic"]').value.trim().toLowerCase(),
