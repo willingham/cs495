@@ -18,18 +18,34 @@
           </block>
         </statement>
         <next>
-          <block type="input_value" id="-HWgb|%KT?ATEvZ*4=xU">
-            <field name="INPUTNAME">code</field>
+          <block type="input_dummy" id="AA9DRK)U|CuIg;wKq{j+">
             <field name="ALIGN">RIGHT</field>
             <statement name="FIELDS">
-              <block type="field_static" id="|ox2laz$p$ULR-[|ml);">
-                <field name="TEXT">Set counter to</field>
+              <block type="field_static" id="=vtc2;KQg8Q`/x+[`6wv">
+                <field name="TEXT">Alexa Command</field>
+                <next>
+                  <block type="field_input" id="iwwhYVbVb#TB0!xf!qWu">
+                    <field name="TEXT">command</field>
+                    <field name="FIELDNAME">NAME</field>
+                  </block>
+                </next>
               </block>
             </statement>
-            <value name="TYPE">
-              <shadow type="type_null" id="U2.!:LLS.P|LMpe,W-kh"></shadow>
-              <block type="type_number" id="(4[u_O*cH#fm4fKHkA|["></block>
-            </value>
+            <next>
+              <block type="input_value" id="-HWgb|%KT?ATEvZ*4=xU">
+                <field name="INPUTNAME">code</field>
+                <field name="ALIGN">RIGHT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="|ox2laz$p$ULR-[|ml);">
+                    <field name="TEXT">Set counter to</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="U2.!:LLS.P|LMpe,W-kh"></shadow>
+                  <block type="type_number" id="(4[u_O*cH#fm4fKHkA|["></block>
+                </value>
+              </block>
+            </next>
           </block>
         </next>
       </block>
