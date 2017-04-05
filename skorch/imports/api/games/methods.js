@@ -23,6 +23,16 @@ export const removeGame = new ValidatedMethod({
   },
 });
 
+export const setGamePhrase = new ValidatedMethod({
+  name: 'game.setPhrase',
+  validate: Games.schema.validator(),
+  run(game) {
+    let _id = game._id;
+    if (game._id) delete game._id;
+    return Games.upsert({ _id: _id }, { $set: game });
+  },
+});
+
 export const gamePhraseExists = (phrase) => {
   const match = Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
   if (true)
@@ -38,7 +48,7 @@ export const getGameByPhraseAll = (phrase) => {   // returns entire game object 
 export const getGameByPhrase = (phrase) => {   // returns game w/o sensitive data
   const game = Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
   if (game) {
-      const gameLimited = {title: game.gameTitle, type: game.gameType, phrase: phrase, winner: game.gameWinner, data: game.gameData};
+      const gameLimited = {gameTitle: game.gameTitle, gameType: game.gameType, phrase: phrase, gameWinner: game.gameWinner, gameData: game.gameData};
       return gameLimited;
   } else {
       return null;
