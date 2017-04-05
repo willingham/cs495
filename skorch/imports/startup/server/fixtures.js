@@ -33,7 +33,7 @@ if (!Meteor.isProduction) {
     gameTitle: 'Test Game',
     gamePhrasePublic: 'galloping green jalopy',
     gamePhrasePrivate: 'roving red rabbit',
-    gameType: 'Leader Board',
+    gameType: 'leaderboard',
     gameWinner: 'Bob',
     gameData: gameData
   },
@@ -41,7 +41,7 @@ if (!Meteor.isProduction) {
       gameTitle: 'Test Game 2',
       gamePhrasePublic: 'black white cow',
       gamePhrasePrivate: 'red white chicken',
-      gameType: 'Ping Pong',
+      gameType: 'pingpong',
       gameWinner: 'Sue',
       gameData: gameData
     }

@@ -27,7 +27,7 @@ const handleRemove = (_id) => {
 const GetGamePage = (game) => { /* returns component of correct game type */
     if (game.type == 'leaderboard') {
         return <LeaderBoardGame game={ game } />
-    } else if (game.type == 'Ping Pong') {
+    } else if (game.type == 'pingpong') {
         return <PingPongGame everything={everything.everything} />
     }
     return null;
