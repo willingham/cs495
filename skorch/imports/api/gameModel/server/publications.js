@@ -1,15 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import Games from '../games';
+import GameModel from '../gameModel';
 
-Meteor.publish('games.list', () => Games.find());
+Meteor.publish('gameModel.list', () => GameModel.find());
 
-Meteor.publish('games.view', (_id) => {
+Meteor.publish('gameModel.view', (_id) => {
   check(_id, String);
-  return Games.find(_id);
-});
-
-Meteor.publish('games.phrase', (_phrase) => {
-  check(_phrase, String);
-  return Games.find({$or: [{gamePhrasePublic: _phrase}, {gamePhrasePrivate:_phrase}]});
+  return GameModel.find(_id);
 });
