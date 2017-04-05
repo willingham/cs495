@@ -20,7 +20,7 @@ GameModel.deny({
 GameModel.schema = new SimpleSchema({
   _id: { type: String, optional: true },
   model: {
-    type: String,
+    type: Object,
     label: 'The object containing all the game model information.',
   }
 });
