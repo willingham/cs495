@@ -17,57 +17,12 @@ GameModel.deny({
   remove: () => true,
 });
 
-let player = new SimpleSchema({
-  player: {
-    type:String
-  },
-  score: {
-    type: Number
-  }
-});
-
-let gameOptions = new SimpleSchema({
-  players: {
-    type:[player],
-    optional: true
-  }
-});
-
-Games.schema = new SimpleSchema({
+GameModel.schema = new SimpleSchema({
   _id: { type: String, optional: true },
-  gameTitle: {
+  model: {
     type: String,
-    label: 'The title of the game.',
-  },
-  gamePhrasePublic: {
-    type: String,
-    label: 'The public game phrase.',
-  },
-  gamePhrasePrivate: {
-    type: String,
-    label: 'The private game phrase.',
-  },
-  gameType: {
-    type: String,
-    label: 'The type of game.',
-  },
-  gameWinner: {
-    type: String,
-    label: 'The winner of the game.',
-  },
-  gameData: {
-    type: gameOptions,
-    optional: true
+    label: 'The object containing all the game model information.',
   }
 });
 
-Games.attachSchema(Games.schema);
-
-Factory.define('game', Games, {
-  gameTitle: () => 'Game title',
-  gamePhrasePublic: () => 'Public game phrase',
-  gamePhrasePrivate: () => 'Private game phrase',
-  gameType: () => 'Type of game',
-  gameWinner: () => 'Winner of game',
-  gameData: () => 'Metadata of game',
-});
+GameModel.attachSchema(GameModel.schema);
