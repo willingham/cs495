@@ -1,5 +1,5 @@
 <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-  <block type="game" id="X3dC)so!Yb!nth5n*mz=" x="13" y="13">
+  <block type="game" deletable="false" movable="false" id="X3dC)so!Yb!nth5n*mz=" x="13" y="13">
     <field name="numTeams">2</field>
   </block>
 </xml>

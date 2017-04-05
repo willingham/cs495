@@ -1,3 +1,4 @@
 **/.idea
 skorch/node_modules/
 skorch/tags
+.DS_Store

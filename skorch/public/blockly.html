@@ -1,0 +1,72 @@
+<head>
+    <script src="blockly/blockly_compressed.js"></script>
+    <script src="blockly/blocks_compressed.js"></script>
+    <script src="blockly/javascript_compressed.js"></script>
+    <script src="modelEditor/blocks.js"></script>
+    <script src="modelEditor/generator.js"></script>
+    <script src="blockly/msg/js/en.js"></script>
+<body>
+    <div id="blockly">
+    </div>
+
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+  <category name="Counters">
+    <block type="counter">
+      <field name="name">name</field>
+      <field name="start">0</field>
+    </block>
+    <block type="calculatedcounter">
+      <field name="name">name</field>
+    </block>
+    <block type="sumcounter"></block>
+    <block type="thiscountervalue"></block>
+    <block type="namedcountervalue">
+      <field name="name">name</field>
+    </block>
+    <block type="namedcounter">
+      <field name="name">name</field>
+    </block>
+  </category>
+  <category name="Modifiers">
+    <block type="modifier">
+      <field name="btnText">text</field>
+    </block>
+  </category>
+  <category name="Conditions">
+    <block type="condition"></block>
+    <block type="logic_compare">
+      <field name="OP">EQ</field>
+    </block>
+    <block type="logic_operation">
+      <field name="OP">AND</field>
+    </block>
+    <block type="logic_negate"></block>
+  </category>
+  <category name="Events">
+    <block type="win"></block>
+    <block type="lose"></block>
+    <block type="dqplayer"></block>
+    <block type="tagmyteam">
+      <field name="tag">tag</field>
+    </block>
+    <block type="tagotherteam">
+      <field name="tag">tag</field>
+    </block>
+  </category>
+  <category name="Math">
+    <block type="math_arithmetic">
+      <field name="OP">ADD</field>
+    </block>
+    <block type="math_number">
+      <field name="NUM">1</field>
+    </block>
+  </category>
+</xml>
+
+<xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+  <block type="game" deletable="false" movable="false" id="X3dC)so!Yb!nth5n*mz=" x="13" y="13">
+    <field name="numTeams">2</field>
+  </block>
+</xml>
+    <script src="modelEditor/workspace.js"></script>
+</body>
