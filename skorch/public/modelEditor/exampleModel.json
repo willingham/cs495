@@ -37,7 +37,7 @@
    "teamCounters":[
       {
          "name":"teamScore",
-         "code":"(sumCounter('name', this))"
+         "code":"(sumCounter('score', this))"
       }
    ],
    "playerConditions":[
