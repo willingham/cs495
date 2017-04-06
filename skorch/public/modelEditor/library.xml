@@ -414,7 +414,7 @@
         </statement>
         <next>
           <block type="input_value" id="8x`v:]xsYsp)r#;rE`I5">
-            <field name="INPUTNAME">NAME</field>
+            <field name="INPUTNAME">code</field>
             <field name="ALIGN">RIGHT</field>
             <statement name="FIELDS">
               <block type="field_static" id="[N$~wPLJmC)GWNdOdXwY">

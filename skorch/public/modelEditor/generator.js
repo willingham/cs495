@@ -2,15 +2,15 @@ Blockly.JavaScript['modifier'] = function(block) {
   var btntext = block.getFieldValue('btnText');
   var alexaCommand = block.getFieldValue('alexaCommand');
   var code = Blockly.JavaScript.valueToCode(block, 'code', Blockly.JavaScript.ORDER_ATOMIC);
-  return '{ "btnText": "' + btntext + '", "alexaCommand": "' + alexaCommand + '", "code": "' + code +'"},';
+  return '{"btnText":"' + btntext + '","alexaCommand":"' + alexaCommand + '","code":"' + code +'"},';
 };
 
 Blockly.JavaScript['counter'] = function(block) {
   var name = block.getFieldValue('name');
   var start = block.getFieldValue('start');
   var modifiers = Blockly.JavaScript.statementToCode(block, 'modifiers');
-  modifiers = modifiers.substring(0, modifiers.length -1); //remove trailing comma
-  return '{ "name":"' + name + '", "start": ' + start + ', "modifiers": [' + modifiers + ']}';
+  modifiers = '[' + modifiers.substring(0, modifiers.length -1) + ']'; //make valid array
+  return '{"name":"' + name + '","start":' + start + ',"modifiers":' + modifiers + '},';
 };
 
 Blockly.JavaScript['thiscountervalue'] = function(block) {
@@ -19,89 +19,78 @@ Blockly.JavaScript['thiscountervalue'] = function(block) {
 };
 
 Blockly.JavaScript['sumcounter'] = function(block) {
-  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = '(sumCounter(\'' + name + '\', this))';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['namedcounter'] = function(block) {
-  var text_name = block.getFieldValue('name');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var name = block.getFieldValue('name');
+  return [name, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['game'] = function(block) {
-  var text_numteams = block.getFieldValue('numTeams');
-  var statements_playercounters = Blockly.JavaScript.statementToCode(block, 'playerCounters');
-  var statements_teamcounters = Blockly.JavaScript.statementToCode(block, 'teamCounters');
-  var statements_playerconditions = Blockly.JavaScript.statementToCode(block, 'playerConditions');
-  var statements_teamconditions = Blockly.JavaScript.statementToCode(block, 'teamConditions');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var numTeams = block.getFieldValue('numTeams');
+  var playerCounters = Blockly.JavaScript.statementToCode(block, 'playerCounters');
+  playerCounters = '[' + playerCounters.substring(0, playerCounters.length -1) + ']'; //make valid array
+  var teamCounters = Blockly.JavaScript.statementToCode(block, 'teamCounters');
+  teamCounters = '[' + teamCounters.substring(0, teamCounters.length -1) + ']'; //make valid array
+  var playerConditions = Blockly.JavaScript.statementToCode(block, 'playerConditions');
+  playerConditions = '[' + playerConditions.substring(0, playerConditions.length -1) + ']'; //make valid array
+  var teamConditions = Blockly.JavaScript.statementToCode(block, 'teamConditions');
+  teamConditions = '[' + teamConditions.substring(0, teamConditions.length -1) + ']'; //make valid array
+
+  var code = '{ "numTeams":' + numTeams + ',' +
+        '"playerCounters":' + playerCounters + ',' + 
+        '"teamCounters":' + teamCounters + ',' + 
+        '"playerConditions":' + playerConditions + ',' + 
+        '"teamConditions":' + teamConditions + 
+        '}';
   return code;
 };
 
 Blockly.JavaScript['calculatedcounter'] = function(block) {
-  var text_name = block.getFieldValue('name');
-  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  var name = block.getFieldValue('name');
+  var code = Blockly.JavaScript.valueToCode(block, 'code', Blockly.JavaScript.ORDER_ATOMIC);
+  return '{"name":"' + name +'","code":"' + code + '"},';
 };
 
 Blockly.JavaScript['namedcountervalue'] = function(block) {
-  var text_name = block.getFieldValue('name');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var name = block.getFieldValue('name');
+  var code = '(getCounterValue(\'' + name + '\', this))';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['condition'] = function(block) {
-  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_result = Blockly.JavaScript.valueToCode(block, 'result', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var result = Blockly.JavaScript.valueToCode(block, 'result', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = '{"condition":"' + condition + '","result":"' + result + '"},';
   return code;
 };
 
 Blockly.JavaScript['win'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = 'win(this)';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['lose'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = 'lose(this)';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['dqplayer'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = 'dqplayer(this)';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['tagmyteam'] = function(block) {
-  var text_tag = block.getFieldValue('tag');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var tag = block.getFieldValue('tag');
+  var code = 'tag(this,\'' + tag + '\')';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['tagotherteam'] = function(block) {
-  var text_tag = block.getFieldValue('tag');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var tag = block.getFieldValue('tag');
+  var code = 'tagOtherTeam(this,\'' + tag + '\')';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };

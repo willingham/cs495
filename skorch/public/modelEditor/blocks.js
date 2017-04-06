@@ -109,7 +109,7 @@ Blockly.Blocks['calculatedcounter'] = {
     this.appendDummyInput()
         .appendField("name")
         .appendField(new Blockly.FieldTextInput("name"), "name");
-    this.appendValueInput("NAME")
+    this.appendValueInput("code")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("value");

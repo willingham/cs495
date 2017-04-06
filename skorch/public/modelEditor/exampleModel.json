@@ -1,0 +1,55 @@
+{
+   "numTeams":2,
+   "playerCounters":[
+      {
+         "name":"score",
+         "start":0,
+         "modifiers":[
+            {
+               "btnText":"+1",
+               "alexaCommand":"increment",
+               "code":"(this.value + 1)"
+            },
+            {
+               "btnText":"-1",
+               "alexaCommand":"decrement",
+               "code":"(this.value - 1)"
+            }
+         ]
+      },
+      {
+         "name":"penalty",
+         "start":0,
+         "modifiers":[
+            {
+               "btnText":"+1",
+               "alexaCommand":"increment",
+               "code":"(this.value + 1)"
+            },
+            {
+               "btnText":"-1",
+               "alexaCommand":"decrement",
+               "code":"(this.value - 1)"
+            }
+         ]
+      }
+   ],
+   "teamCounters":[
+      {
+         "name":"teamScore",
+         "code":"(sumCounter('name', this))"
+      }
+   ],
+   "playerConditions":[
+      {
+         "condition":"((getCounterValue('penalty', this)) >= 3)",
+         "result":"dqplayer(this)"
+      }
+   ],
+   "teamConditions":[
+      {
+         "condition":"((getCounterValue('teamScore', this)) >= 10)",
+         "result":"win(this)"
+      }
+   ]
+}
