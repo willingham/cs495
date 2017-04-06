@@ -14,6 +14,7 @@ import NewGame from '../../ui/pages/NewGame.js';
 import EditGame from '../../ui/containers/EditGame.js';
 import ViewGame from '../../ui/containers/ViewGame.js';
 import LeaderBoardGame from '../../ui/containers/LeaderBoardGame.js';
+import ModelGame from '../../ui/pages/ModelGame.js';
 import Game from '../../ui/containers/Game.js';
 import PingPongGame from '../../ui/containers/PingPongGame.js';
 import Index from '../../ui/pages/Index.js';
@@ -47,7 +48,8 @@ Meteor.startup(() => {
         <Route name="newGame" path="/games/new" component={ NewGame } onEnter={ authenticate } />
         <Route name="editGame" path="/games/:_id/edit" component={ EditGame } onEnter={ authenticate } />
         <Route name="viewGame" path="/games/:_id" component={ ViewGame } onEnter={ authenticate } />
-        <Route name="Game" path="/game/:_phrase" component={ Game } /> // master page for all game types
+        <Route name="Game" path="/game/:_phrase" component={ Game } /> // master page for all game types 
+        <Route name="modelGame" path="/modelgame" component={ ModelGame } />
         <Route name="MyGames" path="mygames" component={ MyGames } onEnter={ authenticate } />
         <Route name="join" path="/join" component={ JoinGame } />
         <Route name="login" path="/login" component={ Login } />
