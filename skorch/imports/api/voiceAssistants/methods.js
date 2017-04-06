@@ -20,11 +20,11 @@ export const upsertVoiceAssistant = (model) => {
 };
 
 export const removeVoiceAssistant = (id) => {
-  VoiceAssistant.remove(id);
+  VoiceAssistant.remove({AssistantId:id});
 };
 
 export const findVoiceAssistantById = (id) => {
-  return VoiceAssistant.findOne({_id:id});
+  return VoiceAssistant.findOne({AssistantId:id});
 };
 
 rateLimit({

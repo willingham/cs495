@@ -17,12 +17,24 @@ GameModel.deny({
   remove: () => true,
 });
 
+let counter = new SimpleSchema({
+  name: {type:String},
+  start:{type:Number},
+  modifiers:{type:[new SimpleSchema({
+      btnText: {type: String},
+      alexaCommand: {type: String},
+      code: {type: String}
+    })]}});
 GameModel.schema = new SimpleSchema({
   _id: { type: String, optional: true },
   name: {type:String},
   model: {
-    type: Object,
     label: 'The object containing all the game model information.',
+    type: new SimpleSchema({
+      numTeams: { type: Number},
+      playerCounters: {type: [counter]},
+      //teamCounters: {type:[counter]}
+    })
   }
 });
 

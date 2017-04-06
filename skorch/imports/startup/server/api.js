@@ -7,7 +7,7 @@ import '../../api/user/server/publications.js';
 import {Restivus} from 'meteor/nimble:restivus';
 import {getGameByPhraseAll, getGameById} from '../../api/games/methods';
 import {upsertVoiceAssistant, removeVoiceAssistant, findVoiceAssistantById} from '../../api/voiceAssistants/methods';
-import {getGameModelById} from '../../api/gameModel/methods';
+import {getGameModelByName} from '../../api/gameModel/methods';
 
 if (Meteor.isServer) {
   var Api = new Restivus({
@@ -91,19 +91,21 @@ if (Meteor.isServer) {
         return "Could not load game";
       }
 
-      const gameModel = getGameModelById(game.gameType);
-      let command = this.bodyParams["action"];
+      const gameModel = getGameModelByName(game.gameType);
+      let command = this.bodyParams["action"].value;
       let appliedChange = false;
+      let foundPerson = false;
 
       gameModel.model.playerCounters.forEach((counter) => {
         counter.modifiers.forEach((modifier) => {
           if (modifier.alexaCommand && modifier.alexaCommand.toLowerCase() === command) {
             let action = modifier.code;
+            appliedChange = true;
 
             game.gameData.players.forEach((player)=>{
-              if (player.player === this.bodyParams["entity"]) {
+              if (player.player.toLowerCase() === this.bodyParams["entity"].value) {
                 //apply action to player.scores[counter.name]
-                appliedChange = true;
+                foundPerson = true;
               }
             })
           }
@@ -111,6 +113,9 @@ if (Meteor.isServer) {
       });
       //do to team modifiers also
 
+      if (!foundPerson) {
+        return "Could not find person";
+      }
       if (appliedChange)
         return "Changes made";
       else

@@ -26,8 +26,11 @@ export const removeGameModel = new ValidatedMethod({
 });
 
 export const getGameModelById = (id) => {
-  return GameModel.find({_id:id});
-}
+  return GameModel.findOne({_id:id});
+};
+export const getGameModelByName = (name) => {
+  return GameModel.findOne({name:name});
+};
 
 
 rateLimit({
