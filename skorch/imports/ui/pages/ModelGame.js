@@ -50,7 +50,20 @@ const players = [
     },
 ];
 
-const ModelGame = (props) => ( // top-level page for all games
+const teams = [
+    {
+        name: "Alabama",
+        counters: counters,
+        players: players,
+    },
+    {
+        name: "Auburn",
+        counters: counters,
+        players: players,
+    },
+];
+
+const MModelGame = (props) => ( // top-level page for all games
     <div>
         <div className="row game-header-row">
             <div className="panel panel-green game-header-panel">
@@ -59,24 +72,36 @@ const ModelGame = (props) => ( // top-level page for all games
                         <div className="col-lg-2">
                             <i className="fa fa-trophy fa-5x" />
                         </div>
-                        <div className="col-lg-8"><h1>The Iron Bowl</h1></div>
+                        <div className="col-lg-8"><h1>{ props.title }</h1></div>
                         <div className="col-lg-2">
                             <i className="fa fa-trophy fa-5x" />
                         </div>
                     </div>
                 </div>
                 <div className="panel-footer">
-                    <span className="pull-left">Public Game Phrase: JubilantPrancingReigndeer</span>
+                    <span className="pull-left">Public Game Phrase: { props.publicGamePhrase }</span>
                     <div className="clearfix"></div>
                 </div>
             </div>
         </div>
         <div className="row">
-            <Team name={ "Alabama" } counters={ counters } players={ players } />
-            <Team name={ "Auburn" } counters={ counters } players={ players } />
+            { props.teams.map((team, i) => {
+                return <Team name={ team.name }
+                             counters={ team.counters }
+                             players={ team.players }
+                             key={i} />
+            })}
         </div>
     </div>
 );
+
+const ModelGame = () => {
+    return <MModelGame title={ "The Iron Bowl" }
+                publicGamePhrase = { "JubilantPrancingReigndeer" }
+                privateGamePhrase = { "" }
+                teams={ teams }
+    />
+}
 
 
 export default ModelGame;
