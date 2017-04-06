@@ -50,10 +50,31 @@ const players = [
     },
 ];
 
-const ModelGame = () => ( // top-level page for all games
-    <div className="row">
-        <Team name={ "Alabama" } counters={ counters } players={ players } />
-        <Team name={ "Auburn" } counters={ counters } players={ players } />
+const ModelGame = (props) => ( // top-level page for all games
+    <div>
+        <div className="row game-header-row">
+            <div className="panel panel-green game-header-panel">
+                <div className="panel-heading">
+                    <div className="row">
+                        <div className="col-lg-2">
+                            <i className="fa fa-trophy fa-5x" />
+                        </div>
+                        <div className="col-lg-8"><h1>The Iron Bowl</h1></div>
+                        <div className="col-lg-2">
+                            <i className="fa fa-trophy fa-5x" />
+                        </div>
+                    </div>
+                </div>
+                <div className="panel-footer">
+                    <span className="pull-left">Public Game Phrase: JubilantPrancingReigndeer</span>
+                    <div className="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div className="row">
+            <Team name={ "Alabama" } counters={ counters } players={ players } />
+            <Team name={ "Auburn" } counters={ counters } players={ players } />
+        </div>
     </div>
 );
 

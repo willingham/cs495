@@ -101,7 +101,7 @@ const Team = (props) => {
         <div className="col-lg-6 team">
             <div className="panel panel-primary">
                 <div className="panel-heading">
-                    <h1>{props.name}</h1>
+                    <h2>{props.name}</h2>
                 </div>
                 <div className="panel-body">
                     <TeamCounters counters={props.counters} />
