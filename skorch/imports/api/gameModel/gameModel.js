@@ -5,7 +5,7 @@ import { Factory } from 'meteor/dburles:factory';
 const GameModel = new Mongo.Collection('GameModel');
 export default GameModel;
 
-GamesModel.allow({
+GameModel.allow({
   insert: () => false,
   update: () => false,
   remove: () => false,
@@ -19,7 +19,7 @@ GameModel.deny({
 
 GameModel.schema = new SimpleSchema({
   _id: { type: String, optional: true },
-  name: String,
+  name: {type:String},
   model: {
     type: Object,
     label: 'The object containing all the game model information.',

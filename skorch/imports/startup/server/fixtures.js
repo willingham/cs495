@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Accounts } from 'meteor/accounts-base';
 import Games from '../../api/games/games.js';
+import GameModel from '../../api/gameModel/gameModel';
 
 if (!Meteor.isProduction) {
   const users = [{
@@ -25,8 +26,14 @@ if (!Meteor.isProduction) {
 
   const gameData = {
     "players":[
-      {"player":'Bob', "score":2},
-      {"player":'Suzy', "score":1}
+      {"player":'Bob', "scores":{
+        "score": 2,
+        "penalty":1
+      }},
+      {"player":'Suzy', "scores":{
+        "score": 1,
+        "penalty": 0
+      }}
     ]
   };
   const games = [{
@@ -49,5 +56,71 @@ if (!Meteor.isProduction) {
 
   games.forEach((game) => {
     Games.upsert({gamePhrasePublic: game.gamePhrasePublic}, {$set: game});
+  });
+
+  const model = [{
+    name:"leaderboard",
+    model:{
+      "numTeams":2,
+      "playerCounters":[
+        {
+          "name":"score",
+          "start":0,
+          "modifiers":[
+            {
+              "btnText":"+1",
+              "alexaCommand":"increment",
+              "code":"(this.value + 1)"
+            },
+            {
+              "btnText":"-1",
+              "alexaCommand":"decrement",
+              "code":"(this.value - 1)"
+            }
+          ]
+        },
+        {
+          "name":"penalty",
+          "start":0,
+          "modifiers":[
+            {
+              "btnText":"+1",
+              "alexaCommand":"increment",
+              "code":"(this.value + 1)"
+            },
+            {
+              "btnText":"-1",
+              "alexaCommand":"decrement",
+              "code":"(this.value - 1)"
+            }
+          ]
+        }
+      ],
+      "teamCounters":[
+        {
+          "name":"teamScore",
+          "code":"(sumCounter('score', this))"
+        }
+      ],
+      "playerConditions":[
+        {
+          "condition":"((getCounterValue('penalty', this)) >= 3)",
+          "result":"dqplayer(this)"
+        }
+      ],
+      "teamConditions":[
+        {
+          "condition":"((getCounterValue('teamScore', this)) >= 10)",
+          "result":"win(this)"
+        }
+      ]
+    }
+  }
+
+  ];
+  model.forEach((m) =>{
+    GameModel.upsert({}, {$set:m});
   })
+
 }
+
