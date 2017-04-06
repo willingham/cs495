@@ -31,16 +31,16 @@ if (!Meteor.isProduction) {
   };
   const games = [{
     gameTitle: 'Test Game',
-    gamePhrasePublic: 'galloping green jalopy',
-    gamePhrasePrivate: 'roving red rabbit',
+    gamePhrasePublic: 'gallopinggreenjalopy',
+    gamePhrasePrivate: 'rovingredrabbit',
     gameType: 'leaderboard',
     gameWinner: 'Bob',
     gameData: gameData
   },
     {
       gameTitle: 'Test Game 2',
-      gamePhrasePublic: 'black white cow',
-      gamePhrasePrivate: 'red white chicken',
+      gamePhrasePublic: 'blackwhitecow',
+      gamePhrasePrivate: 'redwhitechicken',
       gameType: 'pingpong',
       gameWinner: 'Sue',
       gameData: gameData

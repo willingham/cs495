@@ -54,6 +54,10 @@ export const getGameByPhrase = (phrase) => {   // returns game w/o sensitive dat
       return null;
   }
 };
+export const getGameById = (id) => {
+  const game = Games.findOne({_id:id});
+  return game;
+}
 
 export const gamePhraseType = (phrase) => {
     if (Games.findOne({gamePhrasePublic: phrase})) {
