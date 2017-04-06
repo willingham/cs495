@@ -19,9 +19,9 @@ const Modifiers = (props) => {
 const PlayerCounter = (props) => {
     return (
         <div className="row">
-            <div className="col-lg-3 text-right"><h4>{props.counterName}</h4></div>
-            <div className="col-lg-2 text-left"><h4>{props.counterValue}</h4></div>
-            <div className="col-lg-7"><Modifiers modifiers={props.modifiers} /></div>
+            <div className="col-lg-3 col-xs-4 text-right"><h4>{props.counterName}</h4></div>
+            <div className="col-lg-2 col-xs-2 text-left"><h4>{props.counterValue}</h4></div>
+            <div className="col-lg-7 col-xs-6"><Modifiers modifiers={props.modifiers} /></div>
         </div>
     );
 }
