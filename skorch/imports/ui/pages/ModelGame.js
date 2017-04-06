@@ -18,7 +18,7 @@ const penaltyModifiers = [
     { btnText: "-1" },
 ];
 
-const counters = [
+const alabamaCounters = [
     { 
         value: 10,
         name: "score",
@@ -31,35 +31,67 @@ const counters = [
     },
 ];
 
-const players = [
+const auburnCounters = [
+    { 
+        value: 3,
+        name: "score",
+        modifiers: scoreModifiers,
+    },
+    { 
+        value: 10,
+        name: "penalty",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const alabamaPlayers = [
     {
         name: "Thomas",
-        counters: counters,
+        counters: alabamaCounters,
     },
     {
         name: "Nath",
-        counters: counters,
+        counters: alabamaCounters,
     },
     {
         name: "Cody",
-        counters: counters,
+        counters: alabamaCounters,
     },
     {
         name: "Will",
-        counters: counters,
+        counters: alabamaCounters,
+    },
+];
+
+const auburnPlayers = [
+    {
+        name: "Jim",
+        counters: auburnCounters,
+    },
+    {
+        name: "Dale",
+        counters: auburnCounters,
+    },
+    {
+        name: "Hank",
+        counters: auburnCounters,
+    },
+    {
+        name: "Rob",
+        counters: auburnCounters,
     },
 ];
 
 const teams = [
     {
         name: "Alabama",
-        counters: counters,
-        players: players,
+        counters: alabamaCounters,
+        players: alabamaPlayers,
     },
     {
         name: "Auburn",
-        counters: counters,
-        players: players,
+        counters: auburnCounters,
+        players: auburnPlayers,
     },
 ];
 
