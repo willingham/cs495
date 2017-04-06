@@ -22,7 +22,10 @@ let player = new SimpleSchema({
     type:String
   },
   scores: {
-    type: Object
+    type: [new SimpleSchema({
+      name:{type:String},
+      value:{type:Number}
+    })]
   }
 });
 let gameOptions = new SimpleSchema({

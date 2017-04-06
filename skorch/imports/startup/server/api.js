@@ -141,21 +141,23 @@ if (Meteor.isServer) {
       if (!game) {
         return "Could not load game.";
       }
+      let counterName = this.bodyParams["counter"].value;
+      let response = "";
       game.gameData.players.forEach((person) => {
         //if user asks for score, give score | if ask for penalty, give penalty
-        if (person.player === this.bodyParams["entity"]){
-          if(this.bodyParams["counter"] in person.scores) {
-            return person.scores[this.bodyParams["counter"]];
-          }
-          else {
-            return "The counter requested does not exist.";
-          }
+        if (person.player.toLowerCase() === this.bodyParams["entity"].value){
+          person.scores.forEach((score) => {
+            if (score.name === counterName) {
+              response = score.value;
+              appliedChange = true;
+            }
+          });
         }
         }
       )
 
       if (appliedChange)
-        return "Query made.";
+        return response;
       else
         return "Could not find query.";
 

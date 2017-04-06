@@ -26,14 +26,14 @@ if (!Meteor.isProduction) {
 
   const gameData = {
     "players":[
-      {"player":'Bob', "scores":{
-        "score": 2,
-        "penalty":1
-      }},
-      {"player":'Suzy', "scores":{
-        "score": 1,
-        "penalty": 0
-      }}
+      {"player":'Bob', "scores":[
+        {name:"score", value:2},
+        {name:"penalty", value:1}
+      ]},
+      {"player":'Suzy', "scores":[
+        {name:"score", value:1},
+        {name:"penalty", value:0}
+      ]}
     ]
   };
   const games = [{
