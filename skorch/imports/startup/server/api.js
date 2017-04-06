@@ -122,4 +122,46 @@ if (Meteor.isServer) {
         return "Could not find action";
     }
   })
+  Api.addRoute('query/', {}, {
+    post:function() {
+      console.log("Querying");
+      console.log(this.bodyParams);
+      if (!("alexa_id" in this.bodyParams)) {
+        return "An Error Occurred.";
+      }
+
+      let appliedChange = false;
+
+      const assistant = findVoiceAssistantById(this.bodyParams["alexa_id"]);
+      if (!assistant) {
+        return "This assistant is not currently attached to a game";
+      }
+
+      const game = getGameById(assistant.GameId);
+      if (!game) {
+        return "Could not load game.";
+      }
+      game.gameData.players.forEach((person) => {
+        //if user asks for score, give score | if ask for penalty, give penalty
+        if (person.player === this.bodyParams["entity"]){
+          if(this.bodyParams["counter"] in person.scores) {
+            return person.scores[this.bodyParams["counter"]];
+          }
+          else {
+            return "The counter requested does not exist.";
+          }
+        }
+        }
+      )
+
+      if (appliedChange)
+        return "Query made.";
+      else
+        return "Could not find query.";
+
+    }
+    }
+  )
+
+
 }
