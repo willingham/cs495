@@ -5,8 +5,9 @@ import '../../api/games/server/publications.js';
 import '../../api/user/methods.js';
 import '../../api/user/server/publications.js';
 import {Restivus} from 'meteor/nimble:restivus';
-import {getGameByPhraseAll} from '../../api/games/methods';
+import {getGameByPhraseAll, getGameById} from '../../api/games/methods';
 import {upsertVoiceAssistant, removeVoiceAssistant, findVoiceAssistantById} from '../../api/voiceAssistants/methods';
+import {getGameModelById} from '../../api/gameModel/methods';
 
 if (Meteor.isServer) {
   var Api = new Restivus({
@@ -85,7 +86,35 @@ if (Meteor.isServer) {
         return "This assistant is not currently attached to a game";
       }
 
-      return "Changes made";
+      const game = getGameById(assistant.GameId);
+      if (!game) {
+        return "Could not load game";
+      }
+
+      const gameModel = getGameModelById(game.gameType);
+      let command = this.bodyParams["action"];
+      let appliedChange = false;
+
+      gameModel.model.playerCounters.forEach((counter) => {
+        counter.modifiers.forEach((modifier) => {
+          if (modifier.alexaCommand && modifier.alexaCommand.toLowerCase() === command) {
+            let action = modifier.code;
+
+            game.gameData.players.forEach((player)=>{
+              if (player.player === this.bodyParams["entity"]) {
+                //apply action to player.scores[counter.name]
+                appliedChange = true;
+              }
+            })
+          }
+        })
+      });
+      //do to team modifiers also
+
+      if (appliedChange)
+        return "Changes made";
+      else
+        return "Could not find action";
     }
   })
 }

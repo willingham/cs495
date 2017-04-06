@@ -25,6 +25,11 @@ export const removeGameModel = new ValidatedMethod({
   },
 });
 
+export const getGameModelById = (id) => {
+  return GameModel.find({_id:id});
+}
+
+
 rateLimit({
   methods: [
       upsertGameModel,
