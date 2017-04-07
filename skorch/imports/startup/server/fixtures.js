@@ -59,62 +59,60 @@ if (!Meteor.isProduction) {
   });
 
   const model = [{
-    name:"leaderboard",
-    model:{
-      "numTeams":2,
-      "playerCounters":[
-        {
-          "name":"score",
-          "start":0,
-          "modifiers":[
-            {
-              "btnText":"+1",
-              "alexaCommand":"increment",
-              "code":"(this.value + 1)"
-            },
-            {
-              "btnText":"-1",
-              "alexaCommand":"decrement",
-              "code":"(this.value - 1)"
-            }
-          ]
-        },
-        {
-          "name":"penalty",
-          "start":0,
-          "modifiers":[
-            {
-              "btnText":"+1",
-              "alexaCommand":"increment",
-              "code":"(this.value + 1)"
-            },
-            {
-              "btnText":"-1",
-              "alexaCommand":"decrement",
-              "code":"(this.value - 1)"
-            }
-          ]
-        }
+      title: "Basketball",
+      numTeams: 2,
+      teamCounters: [
+          {
+              name: "Score",
+              code: "(sumCounter('Points', this))"
+          },
+          {
+              name: "Mascot High 5s",
+              value: 0,
+              modifiers: [
+                  {
+                      btnText: "+1",
+                      alexaCommand: "increment",
+                      code: "(this.value + 1)"
+                  }
+              ]
+          }
       ],
-      "teamCounters":[
-        {
-          "name":"teamScore",
-          "code":"(sumCounter('score', this))"
-        }
+      playerCounters: [
+          {
+              name: "Points",
+              value: 0,
+              modifiers: [
+                  {
+                      btnText: "+1",
+                      alexaCommand: "plus one",
+                      code: "(this.value + 1)"
+                  },
+                  {
+                      btnText: "+2",
+                      alexaCommand: "plus two",
+                      code: "(this.value + 2)"
+                  },
+                  {
+                      btnText: "+3",
+                      alexaCommand: "plus three",
+                      code: "(this.value + 3)"
+                  }
+              ]
+          }
       ],
-      "playerConditions":[
-        {
-          "condition":"((getCounterValue('penalty', this)) >= 3)",
-          "result":"dqplayer(this)"
-        }
+      teamConditions: [
+          {
+              condition: "((getCounterValue('Mascot High 5s', this)) >=5)",
+              code: "win(this)"
+          }
       ],
-      "teamConditions":[
-        {
-          "condition":"((getCounterValue('teamScore', this)) >= 10)",
-          "result":"win(this)"
-        }
+      playerConditions: [
+          {
+              condition: "((getCounterValue('Points', this)) >= 10)",
+              code: "dqplayer(this)"
+          }
       ]
-    }
   }
 
   ];

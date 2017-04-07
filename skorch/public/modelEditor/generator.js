@@ -10,7 +10,7 @@ Blockly.JavaScript['counter'] = function(block) {
   var start = block.getFieldValue('start');
   var modifiers = Blockly.JavaScript.statementToCode(block, 'modifiers');
   modifiers = '[' + modifiers.substring(0, modifiers.length -1) + ']'; //make valid array
-  return '{"name":"' + name + '","start":' + start + ',"modifiers":' + modifiers + '},';
+  return '{"name":"' + name + '","value":' + start + ',"modifiers":' + modifiers + '},';
 };
 
 Blockly.JavaScript['thiscountervalue'] = function(block) {
@@ -64,7 +64,7 @@ Blockly.JavaScript['namedcountervalue'] = function(block) {
 Blockly.JavaScript['condition'] = function(block) {
   var condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
   var result = Blockly.JavaScript.valueToCode(block, 'result', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = '{"condition":"' + condition + '","result":"' + result + '"},';
+  var code = '{"condition":"' + condition + '","code":"' + result + '"},';
   return code;
 };
 

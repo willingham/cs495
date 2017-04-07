@@ -18,7 +18,33 @@ const penaltyModifiers = [
     { btnText: "-1" },
 ];
 
-const counters = [
+const teamAlabamaCounters = [
+    { 
+        value: 4,
+        name: "points",
+        modifiers: penaltyModifiers,
+    },
+    { 
+        value: 0,
+        name: "flags",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const teamAuburnCounters = [
+    { 
+        value: 1,
+        name: "points",
+        modifiers: penaltyModifiers,
+    },
+    { 
+        value: 2,
+        name: "flags",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const alabamaCounters = [
     { 
         value: 10,
         name: "score",
@@ -31,69 +57,127 @@ const counters = [
     },
 ];
 
-const players = [
+const auburnCounters = [
+    { 
+        value: 3,
+        name: "score",
+        modifiers: scoreModifiers,
+    },
+    { 
+        value: 10,
+        name: "penalty",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const alabamaPlayers = [
     {
         name: "Thomas",
-        counters: counters,
+        counters: alabamaCounters,
     },
     {
         name: "Nath",
-        counters: counters,
+        counters: alabamaCounters,
     },
     {
         name: "Cody",
-        counters: counters,
+        counters: alabamaCounters,
     },
     {
         name: "Will",
-        counters: counters,
+        counters: alabamaCounters,
+    },
+];
+
+const auburnPlayers = [
+    {
+        name: "Jim",
+        counters: auburnCounters,
+    },
+    {
+        name: "Dale",
+        counters: auburnCounters,
+    },
+    {
+        name: "Hank",
+        counters: auburnCounters,
+    },
+    {
+        name: "Rob",
+        counters: auburnCounters,
     },
 ];
 
 const teams = [
     {
         name: "Alabama",
-        counters: counters,
-        players: players,
+        counters: teamAlabamaCounters,
+        players: alabamaPlayers,
     },
     {
         name: "Auburn",
-        counters: counters,
-        players: players,
+        counters: teamAuburnCounters,
+        players: auburnPlayers,
     },
 ];
 
-const MModelGame = (props) => ( // top-level page for all games
-    <div>
-        <div className="row game-header-row">
-            <div className="panel panel-green game-header-panel">
-                <div className="panel-heading">
-                    <div className="row">
-                        <div className="col-lg-2">
-                            <i className="fa fa-trophy fa-5x" />
+class MModelGame extends React.Component { 
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: this.props.title,
+            teams: this.props.teams,
+        };
+        this.addPlayer = this.addPlayer.bind(this);
+    }
+
+    addPlayer(id, name) {
+        let teams = this.state.teams.slice();
+        if (teams[id].name === "Alabama") {
+            count = alabamaCounters;
+        } else { 
+            count = auburnCounters;
+        }
+        teams[id].players.push({ name: name, counters: count });
+        this.setState({ teams: teams });
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="row game-header-row">
+                    <div className="panel panel-green game-header-panel">
+                        <div className="panel-heading">
+                            <div className="row">
+                                <div className="col-lg-2">
+                                    <i className="fa fa-trophy fa-5x" />
+                                </div>
+                                <div className="col-lg-8"><h1>{ this.state.title }</h1></div>
+                                <div className="col-lg-2">
+                                    <i className="fa fa-trophy fa-5x" />
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-lg-8"><h1>{ props.title }</h1></div>
-                        <div className="col-lg-2">
-                            <i className="fa fa-trophy fa-5x" />
+                        <div className="panel-footer">
+                            <span className="pull-left">Public Game Phrase: { this.props.publicGamePhrase }</span>
+                            <div className="clearfix"></div>
                         </div>
                     </div>
                 </div>
-                <div className="panel-footer">
-                    <span className="pull-left">Public Game Phrase: { props.publicGamePhrase }</span>
-                    <div className="clearfix"></div>
+                <div className="row">
+                    { this.state.teams.map((team, i) => {
+                        return <Team name={ team.name }
+                                     counters={ team.counters }
+                                     players={ team.players }
+                                     addPlayer={ this.addPlayer }
+                                     key={i} 
+                                     id={i} />
+                    })}
                 </div>
             </div>
-        </div>
-        <div className="row">
-            { props.teams.map((team, i) => {
-                return <Team name={ team.name }
-                             counters={ team.counters }
-                             players={ team.players }
-                             key={i} />
-            })}
-        </div>
-    </div>
-);
+        );
+    }
+}
 
 const ModelGame = () => {
     return <MModelGame title={ "The Iron Bowl" }

@@ -109,7 +109,7 @@ const Team = (props) => {
                     <Players players={props.players} />
                 </div>
                 <div className="panel-footer">
-                    <Button>+ Add Player</Button>
+                    <Button onClick={ () => props.addPlayer(props.id, prompt('Player Name')) }>+ Add Player</Button>
                 </div>
             </div>
         </div>
