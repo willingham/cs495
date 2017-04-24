@@ -69,12 +69,12 @@ if (!Meteor.isProduction) {
           "modifiers":[
             {
               "btnText":"+1",
-              "alexaCommand":"increment",
+              "alexaCommand":"add a point",
               "code":"(this.value + 1)"
             },
             {
               "btnText":"-1",
-              "alexaCommand":"decrement",
+              "alexaCommand":"remove a point",
               "code":"(this.value - 1)"
             }
           ]

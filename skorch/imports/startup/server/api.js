@@ -157,7 +157,7 @@ if (Meteor.isServer) {
       )
 
       if (appliedChange)
-        return response;
+        return this.bodyParams["entity"].value + "'s " + counterName + " is " + response;
       else
         return "Could not find query.";
 
