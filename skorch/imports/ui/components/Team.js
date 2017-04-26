@@ -9,7 +9,7 @@ const Modifier = (props) => {
 const Modifiers = (props) => {
     return (
         <div className="row modifier-buttons">
-            { props.modifiers.map((modifier, i) => {
+            { props.modifiers && props.modifiers.map((modifier, i) => {
                 return <Modifier btnText={modifier.btnText} key={i} />
               }) }
         </div>

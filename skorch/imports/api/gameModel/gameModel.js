@@ -38,7 +38,7 @@ const condition = new SimpleSchema({
 GameModel.schema = new SimpleSchema({
   _id: { type: String, optional: true },
   title: {type:String},
-  numTeams: { type: String },
+  numTeams: { type: Number },
   teamCounters: { type: [counter] },
   playerCounters: { type: [counter] },
   teamConditions: { type: [condition] },

@@ -6,6 +6,7 @@ import gameEditor from '../../modules/game-editor.js';
 
 export default class GameEditor extends React.Component {
   componentDidMount() {
+    Meteor.subscribe('gameModel.list');
     gameEditor({ component: this });
     setTimeout(() => { document.querySelector('[name="gameTitle"]').focus(); }, 0);
   }
@@ -25,19 +26,18 @@ export default class GameEditor extends React.Component {
           placeholder="My awesome game"
         />
       </FormGroup>
-      <FormGroup controlId="formControlsSelect">
-        <ControlLabel>Game Type</ControlLabel>
-        <FormControl componentClass="select" placeholder="select game type" name="gameType">
-          <option>select</option>
-          <option value="leaderboard">Leader Board</option>
-          <option value="pingpong">Ping Pong</option>
-        </FormControl>
+      <FormGroup>
+        <ControlLabel>Game Model</ControlLabel>
+        <FormControl
+          type="text"
+          name="modelName"
+        />
       </FormGroup>
       <FormGroup>
         <ControlLabel>Public Game Phrase</ControlLabel>
         <FormControl
           type="text"
-          name="gamePhrasePublic"
+          name="publicGamePhrase"
           defaultValue={ doc && doc.gamePhrasePublic }
           placeholder="jubilantPrancingReindeer"
         />
@@ -46,18 +46,9 @@ export default class GameEditor extends React.Component {
         <ControlLabel>Private Game Phrase</ControlLabel>
         <FormControl
           type="text"
-          name="gamePhrasePrivate"
+          name="privateGamePhrase"
           defaultValue={ doc && doc.gamePhrasePrivate }
           placeholder="awkwardRedGoat"
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>gameWinner</ControlLabel>
-        <FormControl
-          type="text"
-          name="gameWinner"
-          defaultValue={ doc && doc.gameWinner }
-          placeholder="If ya ain't first, yer last!"
         />
       </FormGroup>
       <Button type="submit" bsStyle="success">

@@ -4,10 +4,11 @@ import '../../api/games/methods.js';
 import '../../api/games/server/publications.js';
 import '../../api/user/methods.js';
 import '../../api/user/server/publications.js';
+import '../../api/gameModel/methods.js';
+import '../../api/gameModel/server/publications.js';
 import {Restivus} from 'meteor/nimble:restivus';
 import {getGameByPhraseAll, getGameById} from '../../api/games/methods';
 import {upsertVoiceAssistant, removeVoiceAssistant, findVoiceAssistantById} from '../../api/voiceAssistants/methods';
-import {getGameModelByName} from '../../api/gameModel/methods';
 
 if (Meteor.isServer) {
   var Api = new Restivus({

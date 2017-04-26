@@ -11,5 +11,5 @@ Meteor.publish('games.view', (_id) => {
 
 Meteor.publish('games.phrase', (_phrase) => {
   check(_phrase, String);
-  return Games.find({$or: [{gamePhrasePublic: _phrase}, {gamePhrasePrivate:_phrase}]});
+  return Games.find({$or: [{publicGamePhrase: _phrase}, {privateGamePhrase:_phrase}]});
 });

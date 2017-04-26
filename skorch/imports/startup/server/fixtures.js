@@ -24,38 +24,131 @@ if (!Meteor.isProduction) {
     }
   });
 
-  const gameData = {
-    "players":[
-      {"player":'Bob', "scores":[
-        {name:"score", value:2},
-        {name:"penalty", value:1}
-      ]},
-      {"player":'Suzy', "scores":[
-        {name:"score", value:1},
-        {name:"penalty", value:0}
-      ]}
-    ]
-  };
-  const games = [{
-    gameTitle: 'Test Game',
-    gamePhrasePublic: 'gallopinggreenjalopy',
-    gamePhrasePrivate: 'rovingredrabbit',
-    gameType: 'leaderboard',
-    gameWinner: 'Bob',
-    gameData: gameData
-  },
+const scoreModifiers = [
+    { btnText: "+1" },
+    { btnText: "-1" },
+    { btnText: "-1" },
+    { btnText: "x2" }
+];
+
+const penaltyModifiers = [
+    { btnText: "+1" },
+    { btnText: "-1" },
+];
+
+const teamAlabamaCounters = [
     {
-      gameTitle: 'Test Game 2',
-      gamePhrasePublic: 'blackwhitecow',
-      gamePhrasePrivate: 'redwhitechicken',
-      gameType: 'leaderboard',
-      gameWinner: 'Sue',
-      gameData: gameData
-    }
+        value: 4,
+        name: "points",
+        modifiers: penaltyModifiers,
+    },
+    {
+        value: 0,
+        name: "flags",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const teamAuburnCounters = [
+    {
+        value: 1,
+        name: "points",
+        modifiers: penaltyModifiers,
+    },
+    {
+        value: 2,
+        name: "flags",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const alabamaCounters = [
+    {
+        value: 10,
+        name: "score",
+        modifiers: scoreModifiers,
+    },
+    {
+        value: 3,
+        name: "penalty",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const auburnCounters = [
+    {
+        value: 3,
+        name: "score",
+        modifiers: scoreModifiers,
+    },
+    {
+        value: 10,
+        name: "penalty",
+        modifiers: penaltyModifiers,
+    },
+];
+
+const alabamaPlayers = [
+    {
+        name: "Thomas",
+        counters: alabamaCounters,
+    },
+    {
+        name: "Nath",
+        counters: alabamaCounters,
+    },
+    {
+        name: "Cody",
+        counters: alabamaCounters,
+    },
+    {
+        name: "Will",
+        counters: alabamaCounters,
+    },
+];
+
+const auburnPlayers = [
+    {
+        name: "Jim",
+        counters: auburnCounters,
+    },
+    {
+        name: "Dale",
+        counters: auburnCounters,
+    },
+    {
+        name: "Hank",
+        counters: auburnCounters,
+    },
+    {
+        name: "Rob",
+        counters: auburnCounters,
+    },
+];
+
+const teams = [
+    {
+        name: "Alabama",
+        counters: teamAlabamaCounters,
+        players: alabamaPlayers,
+    },
+    {
+        name: "Auburn",
+        counters: teamAuburnCounters,
+        players: auburnPlayers,
+    },
+];
+
+  const games = [{
+    title: 'The Iron Bowl',
+    publicGamePhrase: 'GoofyGolfingGoat',
+    privateGamePhrase: 'PinkProwlingPanther',
+    teams: teams
+  },
   ];
 
   games.forEach((game) => {
-    Games.upsert({gamePhrasePublic: game.gamePhrasePublic}, {$set: game});
+    Games.upsert({publicGamePhrase: game.publicGamePhrase}, {$set: game});
   });
 
   const model = [{

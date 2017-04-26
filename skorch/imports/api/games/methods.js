@@ -42,17 +42,11 @@ export const gamePhraseExists = (phrase) => {
 };
 
 export const getGameByPhraseAll = (phrase) => {   // returns entire game object from database (for debugging)
-  return Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
+  return Games.findOne({$or: [{publicGamePhrase: phrase}, {privateGamePhrase: phrase}]});
 };
 
 export const getGameByPhrase = (phrase) => {   // returns game w/o sensitive data
-  const game = Games.findOne({$or: [{gamePhrasePublic: phrase}, {gamePhrasePrivate:phrase}]});
-  if (game) {
-      const gameLimited = {gameTitle: game.gameTitle, gameType: game.gameType, phrase: phrase, gameWinner: game.gameWinner, gameData: game.gameData};
-      return gameLimited;
-  } else {
-      return null;
-  }
+  return Games.findOne({$or: [{publicGamePhrase: phrase}, {privateGamePhrase: phrase}]});
 };
 export const getGameById = (id) => {
   const game = Games.findOne({_id:id});

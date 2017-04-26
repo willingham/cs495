@@ -6,122 +6,8 @@ import { removeGame, gamePhraseType } from '../../api/games/methods.js';
 import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
 import Team from  '../components/Team.js';
 
-const scoreModifiers = [
-    { btnText: "+1" },
-    { btnText: "-1" },
-    { btnText: "-1" },
-    { btnText: "x2" }
-];
 
-const penaltyModifiers = [
-    { btnText: "+1" },
-    { btnText: "-1" },
-];
-
-const teamAlabamaCounters = [
-    { 
-        value: 4,
-        name: "points",
-        modifiers: penaltyModifiers,
-    },
-    { 
-        value: 0,
-        name: "flags",
-        modifiers: penaltyModifiers,
-    },
-];
-
-const teamAuburnCounters = [
-    { 
-        value: 1,
-        name: "points",
-        modifiers: penaltyModifiers,
-    },
-    { 
-        value: 2,
-        name: "flags",
-        modifiers: penaltyModifiers,
-    },
-];
-
-const alabamaCounters = [
-    { 
-        value: 10,
-        name: "score",
-        modifiers: scoreModifiers,
-    },
-    { 
-        value: 3,
-        name: "penalty",
-        modifiers: penaltyModifiers,
-    },
-];
-
-const auburnCounters = [
-    { 
-        value: 3,
-        name: "score",
-        modifiers: scoreModifiers,
-    },
-    { 
-        value: 10,
-        name: "penalty",
-        modifiers: penaltyModifiers,
-    },
-];
-
-const alabamaPlayers = [
-    {
-        name: "Thomas",
-        counters: alabamaCounters,
-    },
-    {
-        name: "Nath",
-        counters: alabamaCounters,
-    },
-    {
-        name: "Cody",
-        counters: alabamaCounters,
-    },
-    {
-        name: "Will",
-        counters: alabamaCounters,
-    },
-];
-
-const auburnPlayers = [
-    {
-        name: "Jim",
-        counters: auburnCounters,
-    },
-    {
-        name: "Dale",
-        counters: auburnCounters,
-    },
-    {
-        name: "Hank",
-        counters: auburnCounters,
-    },
-    {
-        name: "Rob",
-        counters: auburnCounters,
-    },
-];
-
-const teams = [
-    {
-        name: "Alabama",
-        counters: teamAlabamaCounters,
-        players: alabamaPlayers,
-    },
-    {
-        name: "Auburn",
-        counters: teamAuburnCounters,
-        players: auburnPlayers,
-    },
-];
-
-class MModelGame extends React.Component { 
+class ModelGame extends React.Component { 
     constructor(props) {
         super(props);
         this.state = {
@@ -179,7 +65,7 @@ class MModelGame extends React.Component {
     }
 }
 
-const ModelGame = () => {
+const oldModelGame = (props) => {
     return <MModelGame title={ "The Iron Bowl" }
                 publicGamePhrase = { "JubilantPrancingReigndeer" }
                 privateGamePhrase = { "" }
