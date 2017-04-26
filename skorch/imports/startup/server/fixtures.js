@@ -3,6 +3,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Accounts } from 'meteor/accounts-base';
 import Games from '../../api/games/games.js';
 import GameModel from '../../api/gameModel/gameModel';
+import Tournaments from '../../api/tournaments/tournaments';
 
 if (!Meteor.isProduction) {
   const users = [{
@@ -120,7 +121,79 @@ if (!Meteor.isProduction) {
   ];
   model.forEach((m) =>{
     GameModel.upsert({}, {$set:m});
-  })
+  });
 
+  const tournament = [{
+    "tournamentTitle": "Test Tournament",
+    "tournamentPhrasePublic": "reallyredrabbit",
+    "tournamentPhrasePrivate": "talltryingtiger",
+    "gameData": [
+      {
+        "games": [
+          {
+            "id": "1",
+            "leaf": "true",
+            "home": {"id": "101", "name": "Albert"},
+            "visitor": {"id": "102", "name": "Bob"},
+            "winner": "102"
+          },
+          {
+            "id": "2",
+            "leaf": "true",
+            "home": {"id": "103", "name": "Caleb"},
+            "visitor": {"id": "104", "name": "David"},
+            "winner": "103"
+          },
+          {
+            "id": "3",
+            "leaf": "true",
+            "home": {"id": "105", "name": "Edward"},
+            "visitor": {"id": "106", "name": "Fred"},
+            "winner": "105"
+          },
+          {
+            "id": "4",
+            "leaf": "true",
+            "home": {"id": "107", "name": "George"},
+            "visitor": {"id": "108", "name": "Harold"},
+            "winner": ""
+          }
+        ]
+      },
+      {
+        "games": [
+          {
+            "id": "5",
+            "leaf": "false",
+            "home": {"id": "102", "name": "Bob", "gameId": "1"},
+            "visitor": {"id": "103", "name": "Caleb", "gameId": "2"},
+            "winner": "102"
+          },
+          {
+            "id": "6",
+            "leaf": "false",
+            "home": {"id": "105", "name": "Edward", "gameId": "3"},
+            "visitor": {"id": "", "name": "", "gameId": "4"},
+            "winner": ""
+          }
+        ]
+      },
+      {
+        "games": [
+          {
+            "id": "7",
+            "leaf": "false",
+            "home": {"id": "102", "name": "Bob", "gameId": "5"},
+            "visitor": {"id": "", "name": "", "gameId": "6"},
+            "winner": ""
+          }
+        ]
+      }
+    ]
+  }]
+
+  tournament.forEach((t) => {
+    Tournaments.upsert({}, {$set:t});
+  });
 }
 
