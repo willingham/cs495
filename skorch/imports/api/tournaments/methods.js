@@ -148,9 +148,33 @@ export const getTournamentModel = (phrase) => {
       arr.push(inst);
     }
   }
-  let graph = JSOG.decode(arr);
-  return graph[graph.length-1];
+  return JSOG.decode(arr);
 };
+
+export const getTournamentModelRoot = (phrase) => {
+  let graph = getTournamentModel(phrase);
+  return graph[graph.length-1];
+}
+
+export const getActiveGames = (phrase) => {
+  let model = getTournamentModelRoot(phrase);
+  let games = [];
+  let queue = [model];
+  while (queue.length != 0) {
+    let game = queue.pop();
+    if (!game.winner || game.winner == "") {
+      if (game.sides.home.team && game.sides.home.team.name != "" && game.sides.visitor.team && game.sides.visitor.team.name != "") {
+        games.push(game);
+      }else {
+        if (!game.sides.home.team || game.sides.home.team.name == "")
+          queue.push(game.sides.home.seed.sourceGame);
+        if (!game.sides.visitor.team || game.sides.visitor.team.name == "")
+          queue.push(game.sides.visitor.seed.sourceGame);
+      }
+    }
+  }
+  return games;
+}
 
 export const gamePhraseType = (phrase) => {
     if (Tournaments.findOne({tournamentPhrasePublic: phrase})) {
