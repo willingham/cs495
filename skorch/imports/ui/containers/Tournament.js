@@ -13,7 +13,7 @@ const composer = ({params}, onData) => {
     const tourn = getTournamentModelRoot(tournamentPhrase);
     const full = getTournamentByPhraseAll(tournamentPhrase);
     const games = getActiveGames(tournamentPhrase);
-    onData(null, {tourn, games, full});
+    onData(null, {tourn, games, full, tournamentPhrase});
   }
 };
 
