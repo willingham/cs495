@@ -44,7 +44,7 @@ Meteor.startup(() => {
         <Route name="viewGame" path="/games/:_id" component={ ViewGame } onEnter={ authenticate } />
 
         <Route name="viewModelGame" path="/game/:_phrase" component={ ViewModelGame } /> 
-        <Route name="createTournament" path="/create/tournament" component = { createTournament } />
+        <Route name="createTournament" path="/tournament/new" component = { createTournament } />
         <Route name="Tournament" path="/tournament/:_phrase" component={Tournament} />
         <Route name="MyGames" path="mygames" component={ MyGames } onEnter={ authenticate } />
         <Route name="join" path="/join" component={ JoinGame } />

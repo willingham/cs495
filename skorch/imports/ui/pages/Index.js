@@ -36,10 +36,10 @@ class JoinTournament extends React.Component {
     constructor(props) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.state = { gamePhrase: '' };
+        this.state = { tournamentPhrase: '' };
     }
     handleUpdate(e) {
-        this.setState({ gamePhrase: e.target.value });
+        this.setState({ tournamentPhrase: e.target.value });
     }
     render() {
         return (
