@@ -7,7 +7,7 @@ import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccoun
 import Team from  '../components/Team.js';
 
 
-class ModelGame extends React.Component { 
+class ModelGame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -117,7 +117,7 @@ class ModelGame extends React.Component {
             }
         });
     }
-        
+
     render() {
         return (
             <div>
@@ -128,7 +128,7 @@ class ModelGame extends React.Component {
                                 <div className="col-lg-2">
                                     <i className="fa fa-trophy fa-5x" />
                                 </div>
-                                <div className="col-lg-8"><h1>{ this.state.title }</h1></div>
+                                <div className="col-lg-8"><h1>{ this.props.title }</h1></div>
                                 <div className="col-lg-2">
                                     <i className="fa fa-trophy fa-5x" />
                                 </div>
@@ -141,7 +141,7 @@ class ModelGame extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    { this.state.teams.map((team, i) => {
+                    { this.props.teams.map((team, i) => {
                         return <Team name={ team.name }
                                      counters={ team.counters }
                                      players={ team.players }
@@ -152,7 +152,7 @@ class ModelGame extends React.Component {
                                      updateTeamName={ this.updateTeamName }
                                      updatePlayerName={ this.updatePlayerName }
                                      deletePlayer={ this.deletePlayer }
-                                     key={i} 
+                                     key={i}
                                      id={i} />
                     })}
                 </div>
