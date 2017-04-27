@@ -236,21 +236,24 @@ export const createTournament = (players) => {
   gameArrs.reverse();
 
   //let privateName = Generate.generateName();
-  let privateName = prompt();
-  let tourn = {
-    tournamentTitle: "Tournament",
-    tournamentPhrasePublic: prompt(),
-    tournamentPhrasePrivate: privateName,
-    gameData: gameArrs
-  };
+  Meteor.call('phrasegenerator',function(err, privatePhrase) {
+    Meteor.call('phrasegenerator',function(err, publicPhrase) {
+      let tourn = {
+        tournamentTitle: "Tournament",
+        tournamentPhrasePublic: publicPhrase,
+        tournamentPhrasePrivate: privatePhrase,
+        gameData: gameArrs
+      };
 
-  upsertTournament.call(tourn, (error, response) => {
-    if (error) {
-      Bert.alert(error.reason, 'danger');
-    } else {
-      Bert.alert("Created", 'success');
-      browserHistory.push('/tournament/' + privateName);
-    }
+      upsertTournament.call(tourn, (error, response) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert("Created", 'success');
+          browserHistory.push('/tournament/' + privatePhrase);
+        }
+      });
+    })
   });
 };
 

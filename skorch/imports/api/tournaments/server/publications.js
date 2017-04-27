@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Tournaments from '../tournaments';
+import Generator from 'adjective-animal';
 
 Meteor.publish('tournaments.list', () => Tournaments.find());
 
@@ -14,3 +15,8 @@ Meteor.publish('tournaments.phrase', (_phrase) => {
   check(_phrase, String);
   return Tournaments.find({$or: [{tournamentPhrasePublic: _phrase}, {tournamentPhrasePrivate:_phrase}]});
 });
+
+Meteor.methods({'phrasegenerator': () => {
+  return Generator.generateName().split('-').join('');
+}});
+
