@@ -27,6 +27,7 @@ class ModelGame extends React.Component {
         this.updateTeamName = this.updateTeamName.bind(this);
         this.updatePlayerName = this.updatePlayerName.bind(this);
         this.deletePlayer = this.deletePlayer.bind(this);
+        this.displayPrivateGamePhrase = this.displayPrivateGamePhrase.bind(this);
     }
 
     addPlayer(id, name) {
@@ -119,6 +120,14 @@ class ModelGame extends React.Component {
         });
     }
 
+    displayPrivateGamePhrase() {
+        if (this.state.isPrivate) {
+            return "Private Game Phrase: " + this.state.privateGamePhrase;
+        } else {
+            return "";
+        }
+    }
+
     render() {
         return (
             <div>
@@ -136,8 +145,16 @@ class ModelGame extends React.Component {
                             </div>
                         </div>
                         <div className="panel-footer">
-                            <span className="pull-left">Public Game Phrase: { this.props.publicGamePhrase }</span>
-                            <div className="clearfix"></div>
+                            <div className="row">
+                                <div className="col-lg-6">
+                                    <span className="pull-left">Public Game Phrase: { this.props.publicGamePhrase }</span>
+                                    <div className="clearfix"></div>
+                                </div>
+                                <div className="col-lg-6">
+                                    <div className="clearfix"></div>
+                                    <span className="pull-right">{ this.displayPrivateGamePhrase() }</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
