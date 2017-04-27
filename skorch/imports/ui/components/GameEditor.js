@@ -29,7 +29,11 @@ export default class GameEditor extends React.Component {
       </FormGroup>
       <FormGroup>
         <ControlLabel>Game Model</ControlLabel>
-        <Link to={'/ModelEditor'}><Button bsStyle="success">New</Button></Link>
+        <Link to={'/ModelEditor'}>
+            <Button bsStyle="primary" className="modifier-button">
+                <i className="fa fa-plus"></i>
+            </Button>
+        </Link>
         <FormControl
           type="text"
           name="modelName"
