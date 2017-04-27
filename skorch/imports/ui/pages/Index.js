@@ -63,7 +63,7 @@ class JoinTournament extends React.Component {
 }
 
 const TournamentButtons = (props) => (
-    <div className="homeNewJoinTournament">
+    <div className="homeNewJoinGame">
         <Link to="/tournament/new">
             <Button bsStyle="success" bsSize="large">New Tournament</Button>
         </Link>

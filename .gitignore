@@ -1,5 +1,5 @@
 **/.idea
-skorch/node_modules/
+skorch/node_modules/*
 skorch/tags
 .DS_Store
 *.swp
