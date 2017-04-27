@@ -9,7 +9,7 @@ const MyGames = () => (
       <Col xs={ 12 }>
         <div className="page-header clearfix">
           <h4 className="pull-left">Saved Games</h4>
-          <Link to="/games/new">
+          <Link to="/game/new">
             <Button
               bsStyle="success"
               className="pull-right"

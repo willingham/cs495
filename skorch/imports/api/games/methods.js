@@ -54,9 +54,9 @@ export const getGameById = (id) => {
 }
 
 export const gamePhraseType = (phrase) => {
-    if (Games.findOne({gamePhrasePublic: phrase})) {
+    if (Games.findOne({publicGamePhrase: phrase})) {
         return 'public';
-    } else if (Games.findOne({gamePhrasePrivate: phrase})) {
+    } else if (Games.findOne({privateGamePhrase: phrase})) {
         return 'private';
     } else {
         return null;

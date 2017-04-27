@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem, Alert } from 'react-bootstrap';
 
 const handleNav = (game) => {
   browserHistory.push(`/game/${game}`);
-}
+};
 
 const MyGamesList = ({ games }) => (
   games.length > 0 ? <ListGroup className="MyGames">

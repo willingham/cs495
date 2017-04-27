@@ -11,15 +11,15 @@ class ModelGame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
-            title: this.props.title,
-            publicGamePhrase: this.props.publicGamePhrase,
-            privateGamePhrase: this.props.privateGamePhrase,
-            modelName: this.props.modelName,
-            teams: this.props.teams,
-            playerConditions: this.props.playerConditions,
-            playerCounters: this.props.playerCounters,
-            isPrivate: (this.props.pagePhrase === this.props.privateGamePhrase)
+            id: this.props.game.id,
+            title: this.props.game.title,
+            publicGamePhrase: this.props.game.publicGamePhrase,
+            privateGamePhrase: this.props.game.privateGamePhrase,
+            modelName: this.props.game.modelName,
+            teams: this.props.game.teams,
+            playerConditions: this.props.game.playerConditions,
+            playerCounters: this.props.game.playerCounters,
+            isPrivate: (this.props.game.pagePhrase === this.props.game.privateGamePhrase)
         };
         this.addPlayer = this.addPlayer.bind(this);
         this.updatePlayerCounter = this.updatePlayerCounter.bind(this);
@@ -135,19 +135,13 @@ class ModelGame extends React.Component {
                     <div className="panel panel-green game-header-panel">
                         <div className="panel-heading">
                             <div className="row">
-                                <div className="col-lg-2">
-                                    <i className="fa fa-trophy fa-5x" />
-                                </div>
-                                <div className="col-lg-8"><h1>{ this.props.title }</h1></div>
-                                <div className="col-lg-2">
-                                    <i className="fa fa-trophy fa-5x" />
-                                </div>
+                                <div className="col-lg-12"><h1>{ this.props.game.title }</h1></div>
                             </div>
                         </div>
                         <div className="panel-footer">
                             <div className="row">
                                 <div className="col-lg-6">
-                                    <span className="pull-left">Public Game Phrase: { this.props.publicGamePhrase }</span>
+                                    <span className="pull-left">Public Game Phrase: { this.props.game.publicGamePhrase }</span>
                                     <div className="clearfix"></div>
                                 </div>
                                 <div className="col-lg-6">
@@ -159,7 +153,7 @@ class ModelGame extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    { this.props.teams.map((team, i) => {
+                    { this.props.game.teams.map((team, i) => {
                         return <Team name={ team.name }
                                      counters={ team.counters }
                                      players={ team.players }

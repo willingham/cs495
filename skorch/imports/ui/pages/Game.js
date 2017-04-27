@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { removeGame, gamePhraseType } from '../../api/games/methods.js';
 import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
+import ModelGame from './ModelGame.js';
 
 const handleEdit = (_id) => {
   browserHistory.push(`/games/${_id}/edit`);
@@ -35,18 +36,18 @@ const AddGameButton = (phrase) => {  /* button for adding game to user profile *
     console.log(phrase);
     if (Meteor.user()) {
         if (gameExistsInUserAccount(phrase.phrase)) {
-            return <Button className="pull-right" onClick={ () => { removeGameFromUserAccount(phrase.phrase) } }>Remove from My Games</Button>
+            return <Button className="pull-right" onClick={ () => { removeGameFromUserAccount(phrase.phrase) } }>Remove</Button>
         } else {
-            return <Button className="pull-right" onClick={ () => { addGameToUserAccount(phrase.phrase) } }>Add to My Games</Button>
+            return <Button className="pull-right" onClick={ () => { addGameToUserAccount(phrase.phrase) } }>Save</Button>
         }
     }
     return null;
 };
 
-const Game = ({ game }) => ( // top-level page for all games
+const Game = (game) => ( // top-level page for all games
         <div>
-            <AddGameButton phrase={ game.phrase } />
-            <GetGamePage everything={ game } />
+            <AddGameButton phrase={ game.pagePhrase } />
+            <ModelGame game={game} />
         </div>
 );
 
