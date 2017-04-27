@@ -13,7 +13,16 @@ const composer = ({ params }, onData) => {
   if (subscription.ready()) {
     const game = getGameByPhrase(gamePhrase);
     console.log(game);
-    onData(null, { title: game.title, publicGamePhrase: game.publicGamePhrase, privateGamePhrase: game.privateGamePhrase, teams: game.teams });
+    onData(null, { 
+        id: game._id,
+        title: game.title, 
+        publicGamePhrase: game.publicGamePhrase, 
+        privateGamePhrase: game.privateGamePhrase, 
+        teams: game.teams,
+        modelName: game.modelName,
+        playerConditions: game.playerConditions,
+        playerCounters: game.playerCounters
+    });
   }
 };
 

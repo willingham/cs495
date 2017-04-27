@@ -37,7 +37,7 @@ let counter = new SimpleSchema({
 
 let player = new SimpleSchema({
     name: { type: String },
-    counditions: { type: [condition], optional: true },
+    conditions: { type: [condition], optional: true },
     counters: { type: [counter], optional: true }
 })
 
@@ -53,14 +53,17 @@ Games.schema = new SimpleSchema({
   title: {
     type: String,
     label: 'The title of the game.',
+    optional: true,
   },
   publicGamePhrase: {
     type: String,
     label: 'The public game phrase.',
+    optional: true,
   },
   privateGamePhrase: {
     type: String,
     label: 'The private game phrase.',
+    optional: true,
   },
   teams: {
     type: [team],
