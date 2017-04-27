@@ -145,6 +145,7 @@ class ModelGame extends React.Component {
                         return <Team name={ team.name }
                                      counters={ team.counters }
                                      players={ team.players }
+                                     team={team}
                                      addPlayer={ this.addPlayer }
                                      updatePlayerCounter = { this.updatePlayerCounter }
                                      updateTeamCounter = { this.updateTeamCounter }

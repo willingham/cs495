@@ -10,6 +10,23 @@ const handleModifier = (code, value, updateInfo, updateFn) => {
     };
 }
 
+const sumCounter = (name, team) => {
+    let total = 0;
+    team.players.forEach((player) => {
+        player.counters.filter((c) => c.name == name).forEach((counter) => {
+            total += counter.value;
+        });
+    });
+    return total;
+}
+
+const evalValueCounter = (code, team) => {
+    if (!code) return false;
+    const toEval = "(function() { return " + code + ";})";
+    const fn = eval(toEval).bind(team);
+    return fn();
+}
+
 const Modifier = (props) => {
     return <Button 
                 className="modifier-button"
@@ -120,7 +137,7 @@ const TeamCounter = (props) => {
         <div className="col-lg-4 team-counter">
             <div className="panel panel-default">
                 <div className="panel-body center">
-                    <h1>{props.counterValue}</h1>
+                    <h1>{evalValueCounter(props.code, props.team) || props.counterValue}</h1>
                 </div>
                 <div className="panel-footer">
                     <h4>{props.counterName}</h4>
@@ -142,6 +159,8 @@ const TeamCounters = (props) => {
                 return <TeamCounter counterValue={counter.value}
                              counterName={counter.name}
                              modifiers={counter.modifiers}
+                             code={counter.code}
+                             team={props.team}
                              key={i}
                              updateInfo={{
                                 teamId: props.updateInfo.teamId,
@@ -172,6 +191,7 @@ const Team = (props) => {
                     <TeamCounters 
                         updateInfo = {{teamId: props.id}}
                         updateCounter={props.updateTeamCounter}
+                        team={props.team}
                         counters={props.counters} />
                     
                     <Players 
