@@ -32,8 +32,6 @@ export const getGameModelByTitle = (title) => {
 
 export const getModelByName = (name) => {
     model = GameModel.findOne({title:name});
-    console.log(name);
-    console.log(model);
     if (!model) {
         return null;
     }

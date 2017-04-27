@@ -21,6 +21,9 @@ class ModelGame extends React.Component {
             playerCounters: this.props.playerCounters
         };
         this.addPlayer = this.addPlayer.bind(this);
+        this.updatePlayerCounter = this.updatePlayerCounter.bind(this);
+        this.updateTeamName = this.updateTeamName.bind(this);
+        this.updatePlayerName = this.updatePlayerName.bind(this);
     }
 
     addPlayer(id, name) {
@@ -40,6 +43,49 @@ class ModelGame extends React.Component {
                 Bert.alert(error.reason, 'danger');
             } else {
                 Bert.alert("Player added!", 'success');
+            }
+        });
+    }
+
+    updatePlayerCounter(teamId, playerId, counterId, value) {
+        let teams = this.state.teams.slice();
+        teams[teamId].players[playerId].counters[counterId].value = value;
+        const upsert = {
+            _id: this.state.id,
+            teams: teams
+        };
+        upsertGame.call(upsert, (error, response) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            }
+        });
+
+    }
+
+    updateTeamName(teamId, name) {
+        let teams = this.state.teams.slice();
+        teams[teamId].name = name;
+        const upsert = {
+            _id: this.state.id,
+            teams: teams
+        }
+        upsertGame.call(upsert, (error, response) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            }
+        });
+    }
+
+    updatePlayerName(teamId, playerId, name) {
+        let teams = this.state.teams.slice();
+        teams[teamId].players[playerId].name = name;
+        const upsert = {
+            _id: this.state.id,
+            teams: teams
+        }
+        upsertGame.call(upsert, (error, response) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
             }
         });
     }
@@ -72,6 +118,9 @@ class ModelGame extends React.Component {
                                      counters={ team.counters }
                                      players={ team.players }
                                      addPlayer={ this.addPlayer }
+                                     updatePlayerCounter = { this.updatePlayerCounter }
+                                     updateTeamName={ this.updateTeamName }
+                                     updatePlayerName={ this.updatePlayerName }
                                      key={i} 
                                      id={i} />
                     })}
