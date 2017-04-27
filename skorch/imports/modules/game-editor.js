@@ -13,36 +13,42 @@ const handleUpsert = () => {
   const confirmation = doc && doc._id ? 'Game updated!' : 'Game added!';
   const modelName = document.querySelector('[name="modelName"]').value.trim();
   let model = getModelByName(modelName);
-  const privateGamePhrase = document.querySelector('[name="privateGamePhrase"]').value.trim().toLowerCase();
-  const upsert = {
-    title: document.querySelector('[name="gameTitle"]').value.trim(),
-    publicGamePhrase: document.querySelector('[name="publicGamePhrase"]').value.trim().toLowerCase(),
-    privateGamePhrase: privateGamePhrase,
-    modelName: modelName,
-    teams: model.teams,
-    playerCounters: model.playerCounters,
-    playerConditions: model.playerConditions,
-  };
 
-  if (doc && doc._id) upsert._id = doc._id;
+  Meteor.call('gamephrasegenerator', function(err, privatePhrase) {
+    Meteor.call('gamephrasegenerator', function(err, publicPhrase) {
+      const upsert = {
+        title: document.querySelector('[name="gameTitle"]').value.trim(),
+        publicGamePhrase: publicPhrase,
+        privateGamePhrase: privatePhrase,
+        modelName: modelName,
+        teams: model.teams,
+        playerCounters: model.playerCounters,
+        playerConditions: model.playerConditions,
+      };
 
-  upsertGame.call(upsert, (error, response) => {
-    if (error) {
-      Bert.alert(error.reason, 'danger');
-    } else {
-      component.gameEditorForm.reset();
-      Bert.alert(confirmation, 'success');
-      browserHistory.push(`/game/${privateGamePhrase}`);
-    }
-  });
+      if (doc && doc._id) upsert._id = doc._id;
+
+      upsertGame.call(upsert, (error, response) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          component.gameEditorForm.reset();
+          Bert.alert(confirmation, 'success');
+          browserHistory.push(`/game/${privatePhrase}`);
+        }
+      });
+    })
+  })
+
+
 };
 
 const validate = () => {
   $(component.gameEditorForm).validate({
     rules: {
       title: { required: true, },
-      publicGamePhrase: { required: true, },
-      privateGamePhrase: { required: true, },
+      //publicGamePhrase: { required: true, },
+      //privateGamePhrase: { required: true, },
       modelName: { required: true, },
     },
     messages: {
