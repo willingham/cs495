@@ -76,6 +76,7 @@ export const getTournamentModel = (phrase) => {
         "name": game.id,
         "scheduled": 0,
         "eventType": "Game",
+        "winner": game.winner
       };
       if (arr.length == 0) {
         inst["gameGroup"] = {

@@ -10,7 +10,7 @@ export class ProgressGameComponent extends React.Component {
   render() {
     const {tourn, game, player1, player2} = this.props;
     return (
-      <div>
+      <div className="tournamentButtons">
       <h3>{player1.name} vs {player2.name}</h3>
       <Button
         bsStyle="success"
