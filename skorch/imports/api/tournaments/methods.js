@@ -3,8 +3,10 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import Tournaments from './tournaments';
 import rateLimit from '../../modules/rate-limit.js';
 import JSOG from 'jsog';
+//import Generate from 'adjective-animal';
+import { browserHistory } from 'react-router';
 
-export const upsertTournament = new ValidatedMethod({
+const upsertTournamentInside = new ValidatedMethod({
   name: 'tournament.upsert',
   validate: Tournaments.schema.validator(),
   run(tourn) {
@@ -13,6 +15,7 @@ export const upsertTournament = new ValidatedMethod({
     return Tournaments.upsert({ _id: _id }, { $set: tourn });
   },
 });
+export const upsertTournament = upsertTournamentInside;
 
 export const removeTournament = new ValidatedMethod({
   name: 'tournament.remove',
@@ -122,7 +125,7 @@ export const getTournamentModel = (phrase) => {
           "visitor": {
             "team": (game.visitor.id && game.visitor.id != "") ? {"@ref":game.visitor.id} : null,
             "seed":{
-              "sourceGame": {"@ref":game.visitor.gameId},
+              "sourceGame": (game.visitor.gameId) ?{"@ref":game.visitor.gameId} : null,
               "sourcePool": null,
               "displayName": "",
               "rank":1
@@ -131,19 +134,33 @@ export const getTournamentModel = (phrase) => {
           "home": {
             "team": (game.home.id && game.home.id != "") ? {"@ref":game.home.id} : null,
             "seed":{
-              "sourceGame": {"@ref":game.home.gameId},
+              "sourceGame": (game.home.gameId) ? {"@ref":game.home.gameId} : null,
               "sourcePool": null,
               "displayName": "",
               "rank":1
             }
           }
         };
-        inst["homeSeed"] = {
-          "sourceGame": {"@ref": game.home.gameId}
-        };
-        inst["visitorSeed"] = {
-          "sourceGame": {"@ref": game.visitor.gameId}
-        };
+        if (!game.home.gameId)
+          inst.sides.home.team = {
+            "@id": game.home.id,
+            "id": game.home.id,
+            "name": game.home.name
+          };
+        if (!game.visitor.gameId)
+          inst.sides.visitor.team = {
+            "@id": game.visitor.id,
+            "id": game.visitor.id,
+            "name": game.visitor.name
+          };
+        if (game.home.gameId)
+          inst["homeSeed"] = {
+            "sourceGame": {"@ref": game.home.gameId}
+          };
+        if (game.visitor.gameId)
+          inst["visitorSeed"] = {
+            "sourceGame": {"@ref": game.visitor.gameId}
+          };
       }
       arr.push(inst);
     }
@@ -163,7 +180,7 @@ export const getActiveGames = (phrase) => {
   while (queue.length != 0) {
     let game = queue.pop();
     if (!game.winner || game.winner == "") {
-      if (game.sides.home.team && game.sides.home.team.name != "" && game.sides.visitor.team && game.sides.visitor.team.name != "") {
+      if (game.sides.home && game.sides.home.team && game.sides.home.team.name != "" && game.sides.visitor && game.sides.visitor.team && game.sides.visitor.team.name != "") {
         games.push(game);
       }else {
         if (!game.sides.home.team || game.sides.home.team.name == "")
@@ -174,7 +191,68 @@ export const getActiveGames = (phrase) => {
     }
   }
   return games;
-}
+};
+
+export const createTournament = (players) => {
+  const processLevel = (arr) => {
+    if (arr.length == 1)
+      return arr[0];
+    if (arr.length == 2)
+      return arr;
+    let halfway = Math.round(arr.length / 2);
+    let first = processLevel(arr.slice(0,halfway));
+    let second = processLevel(arr.slice(halfway, arr.length));
+    return [first, second];
+  };
+  let bracketPlayers = processLevel(players);
+
+  let gameArrs = [];
+  let counter = 1;
+  let playCounter = 101;
+  const createStructure = (arr, level) => {
+    if (gameArrs.length < level+1) {
+      gameArrs.push({games:[]});
+    }
+    let home = {};
+    if (arr[0].constructor === Array)
+      home = { gameId: createStructure(arr[0], level + 1)};
+    else
+      home = {id: "" + playCounter++, name: arr[0]};
+    let visitor = {};
+    if (arr[1].constructor === Array)
+      visitor = {gameId: createStructure(arr[1], level + 1)};
+    else
+      visitor = {id: "" + playCounter++, name: arr[1]};
+    let game = {
+      id: "" + counter++,
+      leaf: (arr[0].constructor === Array || arr[1].constructor === Array) ? "false" : "true",
+      home: home,
+      visitor: visitor
+    };
+    gameArrs[level].games.push(game);
+    return game.id;
+  };
+  createStructure(bracketPlayers, 0);
+  gameArrs.reverse();
+
+  //let privateName = Generate.generateName();
+  let privateName = prompt();
+  let tourn = {
+    tournamentTitle: "Tournament",
+    tournamentPhrasePublic: prompt(),
+    tournamentPhrasePrivate: privateName,
+    gameData: gameArrs
+  };
+
+  upsertTournament.call(tourn, (error, response) => {
+    if (error) {
+      Bert.alert(error.reason, 'danger');
+    } else {
+      Bert.alert("Created", 'success');
+      browserHistory.push('/tournament/' + privateName);
+    }
+  });
+};
 
 export const gamePhraseType = (phrase) => {
     if (Tournaments.findOne({tournamentPhrasePublic: phrase})) {

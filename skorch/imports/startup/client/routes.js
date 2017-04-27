@@ -26,6 +26,7 @@ import Signup from '../../ui/pages/Signup.js';
 import JoinGame from '../../ui/pages/JoinGame.js';
 import MyGames from '../../ui/pages/MyGames.js';
 import Tournament from '../../ui/containers/Tournament';
+import createTournament from '../../ui/pages/CreateTournament';
 
 const authenticate = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -51,6 +52,7 @@ Meteor.startup(() => {
         <Route name="viewGame" path="/games/:_id" component={ ViewGame } onEnter={ authenticate } />
         <Route name="Game" path="/game/:_phrase" component={ Game } /> // master page for all game types
         <Route name="modelGame" path="/modelgame" component={ ModelGame } />
+        <Route name="createTournament" path="/create/tournament" component = { createTournament } />
         <Route name="Tournament" path="/tournament/:_phrase" component={Tournament} />
         <Route name="MyGames" path="mygames" component={ MyGames } onEnter={ authenticate } />
         <Route name="join" path="/join" component={ JoinGame } />
