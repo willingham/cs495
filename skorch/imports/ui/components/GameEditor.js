@@ -39,24 +39,6 @@ export default class GameEditor extends React.Component {
           name="modelName"
         />
       </FormGroup>
-      <FormGroup>
-        <ControlLabel>Public Game Phrase</ControlLabel>
-        <FormControl
-          type="text"
-          name="publicGamePhrase"
-          defaultValue={ doc && doc.gamePhrasePublic }
-          placeholder="jubilantPrancingReindeer"
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Private Game Phrase</ControlLabel>
-        <FormControl
-          type="text"
-          name="privateGamePhrase"
-          defaultValue={ doc && doc.gamePhrasePrivate }
-          placeholder="awkwardRedGoat"
-        />
-      </FormGroup>
       <Button type="submit" bsStyle="success">
         { doc && doc._id ? 'Save Changes' : 'Add Game' }
       </Button>

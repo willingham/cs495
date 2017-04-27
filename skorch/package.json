@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Skorka-dorka-dork",
   "repository": [
-      {
-          "type": "git",
-          "url": "https://github.com/willingham/cs495"
-      }
+    {
+      "type": "git",
+      "url": "https://github.com/willingham/cs495"
+    }
   ],
   "license": "100% proprietary; we will sue you if you use this.",
   "scripts": {
@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "adjective-adjective-animal": "^1.3.3",
+    "adjective-animal": "^1.1.3",
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
     "bootstrap": "^3.3.7",
