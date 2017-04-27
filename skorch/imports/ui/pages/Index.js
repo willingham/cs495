@@ -35,7 +35,7 @@ class JoinGame extends React.Component {
 
 const Buttons = (props) => (
     <div className="homeNewJoinGame">
-        <Link to="/games/new">
+        <Link to="/game/new">
             <Button bsStyle="success" bsSize="large">New Game</Button>
         </Link>
         <Button bsStyle="primary" bsSize="large" onClick={props.onJoin}>Join Game</Button>

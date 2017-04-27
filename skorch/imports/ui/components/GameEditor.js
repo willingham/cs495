@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 import gameEditor from '../../modules/game-editor.js';
 
 export default class GameEditor extends React.Component {
@@ -28,6 +29,7 @@ export default class GameEditor extends React.Component {
       </FormGroup>
       <FormGroup>
         <ControlLabel>Game Model</ControlLabel>
+        <Link to={'/ModelEditor'}><Button bsStyle="success">New</Button></Link>
         <FormControl
           type="text"
           name="modelName"
