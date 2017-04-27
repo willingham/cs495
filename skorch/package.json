@@ -2,6 +2,13 @@
   "name": "skorch",
   "version": "1.0.0",
   "description": "Skorka-dorka-dork",
+  "repository": [
+    {
+      "type": "git",
+      "url": "https://github.com/willingham/cs495"
+    }
+  ],
+  "license": "100% proprietary; we will sue you if you use this.",
   "scripts": {
     "start": "meteor --settings settings-development.json",
     "test": "meteor test --driver-package practicalmeteor:mocha --port 5000",
@@ -74,6 +81,7 @@
     "meteor-node-stubs": "^0.2.6",
     "react": "^15.3.2",
     "react-addons-pure-render-mixin": "^15.3.2",
+    "react-blockly-component": "^2.0.1",
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2",
     "react-komposer": "^1.13.1",

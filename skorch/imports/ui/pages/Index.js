@@ -32,15 +32,73 @@ class JoinGame extends React.Component {
     }
 }
 
+class JoinTournament extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.state = { gamePhrase: '' };
+    }
+    handleUpdate(e) {
+        this.setState({ gamePhrase: e.target.value });
+    }
+    render() {
+        return (
+            <div className="homeNewJoinGame">
+                <Form inline>
+                    <FormGroup>
+                        <FormControl
+                            type="text"
+                            value={ this.state.tournamentPhrase }
+                            placeholder="Enter Tournament Phrase"
+                            onChange={ this.handleUpdate }
+                            className="txtbx-enterTournamentPhrase"
+                        />
+                            <Link to={'/tournament/' + this.state.tournamentPhrase }><Button bsStyle="primary" bsSize="large">Join Tournament</Button></Link>
+                            <Button bsSize="large" onClick={this.props.closeJoin}><span>&times;</span></Button>
+                    </FormGroup>
+                </Form>
+            </div>
+        )
+    }
+}
 
-const Buttons = (props) => (
+const TournamentButtons = (props) => (
+    <div className="homeNewJoinTournament">
+        <Link to="/tournament/new">
+            <Button bsStyle="success" bsSize="large">New Tournament</Button>
+        </Link>
+        <Button bsStyle="primary" bsSize="large" onClick={props.onJoin}>Join Tournament</Button>
+    </div>
+);
+
+const GameButtons = (props) => (
     <div className="homeNewJoinGame">
-        <Link to="/games/new">
+        <Link to="/game/new">
             <Button bsStyle="success" bsSize="large">New Game</Button>
         </Link>
         <Button bsStyle="primary" bsSize="large" onClick={props.onJoin}>Join Game</Button>
     </div>
 );
+
+class NewJoinTournament extends React.Component {
+    constructor() {
+        super();
+
+        this.swapChild = this.swapChild.bind(this);
+        this.closeJoin = this.closeJoin.bind(this);
+ 
+        this.state = { child: <TournamentButtons onJoin={this.swapChild} /> };
+    }
+    swapChild() {
+        this.setState({ child : <JoinTournament closeJoin={this.closeJoin} /> });
+    }
+    closeJoin() {
+        this.setState({ child : <TournamentButtons onJoin={this.swapChild} /> });
+    }
+    render() {
+        return this.state.child;
+    }
+}
 
 class NewJoinGame extends React.Component {
     constructor() {
@@ -49,13 +107,13 @@ class NewJoinGame extends React.Component {
         this.swapChild = this.swapChild.bind(this);
         this.closeJoin = this.closeJoin.bind(this);
  
-        this.state = { child: <Buttons onJoin={this.swapChild} /> };
+        this.state = { child: <GameButtons onJoin={this.swapChild} /> };
     }
     swapChild() {
         this.setState({ child : <JoinGame closeJoin={this.closeJoin} /> });
     }
     closeJoin() {
-        this.setState({ child : <Buttons onJoin={this.swapChild} /> });
+        this.setState({ child : <GameButtons onJoin={this.swapChild} /> });
     }
     render() {
         return this.state.child;
@@ -94,6 +152,7 @@ class Index extends React.Component {
                   <img src="/skorch-logo.png" width="40%"/>
                   <p className="lead">A skorekeeping app for everything!</p>
                   <NewJoinGame />
+                  <NewJoinTournament />
                 </div>
               </div>
           </div>

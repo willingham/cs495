@@ -4,8 +4,6 @@ import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { removeGame, gamePhraseType } from '../../api/games/methods.js';
 import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
-import LeaderBoardGame from './LeaderBoardGame.js';
-import PingPongGame from './PingPongGame.js';
 
 const handleEdit = (_id) => {
   browserHistory.push(`/games/${_id}/edit`);

@@ -5,13 +5,11 @@ import rateLimit from '../../modules/rate-limit.js';
 
 export const upsertGameModel = new ValidatedMethod({
   name: 'gameModel.upsert',
-  validate: new SimpleSchema({
-      _id: { type: String, optional: true },
-      name: { type: String, optional: true },
-      model: { type: Object, optional: true },
-  }).validator(),
-  run(model) {
-    return GameModel.upsert({ _id: model._id }, { $set: model });
+  validate: GameModel.schema.validator(),
+  run(gameModel) {
+    let _id = gameModel._id;
+    if (gameModel._id) delete gameModel._id;
+    return GameModel.upsert({ _id: _id }, { $set: gameModel });
   },
 });
 
@@ -28,8 +26,31 @@ export const removeGameModel = new ValidatedMethod({
 export const getGameModelById = (id) => {
   return GameModel.findOne({_id:id});
 };
-export const getGameModelByName = (name) => {
-  return GameModel.findOne({name:name});
+export const getGameModelByTitle = (title) => {
+  return GameModel.findOne({title:title});
+};
+
+export const getModelByName = (name) => {
+    model = GameModel.findOne({title:name});
+    if (!model) {
+        return null;
+    }
+
+    let teams = [];
+    for (let i=1; i<= model.numTeams; i++) {
+        teams.push({
+            name: "Team" + i,
+            counters: model.teamCounters,
+            players: [],
+            conditions: model.teamConditions
+        });
+    }
+
+    return {
+        teams: teams,
+        playerCounters: model.playerCounters,
+        playerConditions: model.playerConditions,
+    };
 };
 
 

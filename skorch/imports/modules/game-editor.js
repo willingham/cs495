@@ -3,6 +3,7 @@
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { upsertGame } from '../api/games/methods.js';
+import { getModelByName } from '../api/gameModel/methods.js';
 import './validation.js';
 
 let component;
@@ -10,47 +11,57 @@ let component;
 const handleUpsert = () => {
   const { doc } = component.props;
   const confirmation = doc && doc._id ? 'Game updated!' : 'Game added!';
-  const upsert = {
-    gameTitle: document.querySelector('[name="gameTitle"]').value.trim(),
-    gamePhrasePublic: document.querySelector('[name="gamePhrasePublic"]').value.trim().toLowerCase(),
-    gamePhrasePrivate: document.querySelector('[name="gamePhrasePrivate"]').value.trim().toLowerCase(),
-    gameType: document.querySelector('[name="gameType"]').value.trim(),
-    gameWinner: document.querySelector('[name="gameWinner"]').value.trim(),
-    gameData: {},
-  };
+  const modelName = document.querySelector('[name="modelName"]').value.trim();
+  let model = getModelByName(modelName);
 
-  if (doc && doc._id) upsert._id = doc._id;
+  Meteor.call('gamephrasegenerator', function(err, privatePhrase) {
+    Meteor.call('gamephrasegenerator', function(err, publicPhrase) {
+      const upsert = {
+        title: document.querySelector('[name="gameTitle"]').value.trim(),
+        publicGamePhrase: publicPhrase,
+        privateGamePhrase: privatePhrase,
+        modelName: modelName,
+        teams: model.teams,
+        playerCounters: model.playerCounters,
+        playerConditions: model.playerConditions,
+      };
 
-  upsertGame.call(upsert, (error, response) => {
-    if (error) {
-      Bert.alert(error.reason, 'danger');
-    } else {
-      component.gameEditorForm.reset();
-      Bert.alert(confirmation, 'success');
-      browserHistory.push(`/games/${response.insertedId || doc._id}`);
-    }
-  });
+      if (doc && doc._id) upsert._id = doc._id;
+
+      upsertGame.call(upsert, (error, response) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          component.gameEditorForm.reset();
+          Bert.alert(confirmation, 'success');
+          browserHistory.push(`/game/${privatePhrase}`);
+        }
+      });
+    })
+  })
+
+
 };
 
 const validate = () => {
   $(component.gameEditorForm).validate({
     rules: {
-      gameTitle: { required: true, },
-      gamePhrasePublic: { required: true, },
-      gamePhrasePrivate: { required: true, }, gameType: { required: true, },
-      gameWinner: { required: false, },
+      title: { required: true, },
+      //publicGamePhrase: { required: true, },
+      //privateGamePhrase: { required: true, },
+      modelName: { required: true, },
     },
     messages: {
-      gameTitle: {
+      title: {
         required: 'Need a game title.',
       },
-      gamePhrasePublic: {
+      publicGamePhrase: {
         required: 'Need a public game phrase.',
       },
-      gamePhrasePrivate: {
+      privateGamePhrase: {
         required: 'Need a private game phrase.',
       },
-      gameType: {
+      modelName: {
         required: 'Need a game type.',
       },
     },

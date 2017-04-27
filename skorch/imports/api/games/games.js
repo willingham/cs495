@@ -17,59 +17,71 @@ Games.deny({
   remove: () => true,
 });
 
-let player = new SimpleSchema({
-  player: {
-    type:String
-  },
-  scores: {
-    type: [new SimpleSchema({
-      name:{type:String},
-      value:{type:Number}
-    })]
-  }
+const condition = new SimpleSchema({
+    condition: { type: String, optional: true },
+    code: { type: String, optional: true }
+})
+
+let modifier = new SimpleSchema({
+    btnText: { type: String, optional: true },
+    alexaCommand: { type: String, optional: true },
+    code: { type: String, optional: true }
 });
-let gameOptions = new SimpleSchema({
-  players: {
-    type:[player],
-    optional: true
-  }
+
+let counter = new SimpleSchema({
+    value: { type: Number, optional: true },
+    name: { type: String },
+    modifiers: { type: [modifier], optional: true},
+    code: { type: String, optional: true }
+});
+
+let player = new SimpleSchema({
+    name: { type: String },
+    conditions: { type: [condition], optional: true },
+    counters: { type: [counter], optional: true }
+})
+
+let team = new SimpleSchema({
+  name: { type:String },
+  counters: { type: [counter], optional: true },
+  conditions: { type: [condition], optional: true },
+  players: { type: [player], optional: true }
 });
 
 Games.schema = new SimpleSchema({
   _id: { type: String, optional: true },
-  gameTitle: {
+  title: {
     type: String,
     label: 'The title of the game.',
+    optional: true,
   },
-  gamePhrasePublic: {
+  publicGamePhrase: {
     type: String,
     label: 'The public game phrase.',
+    optional: true,
   },
-  gamePhrasePrivate: {
+  privateGamePhrase: {
     type: String,
     label: 'The private game phrase.',
+    optional: true,
   },
-  gameType: {
-    type: String,
-    label: 'The type of game.',
-  },
-  gameWinner: {
-    type: String,
-    label: 'The winner of the game.',
-  },
-  gameData: {
-    type: gameOptions,
+  teams: {
+    type: [team],
     optional: true
+  },
+  modelName: {
+      type: String,
+      optional: true
+  },
+  playerCounters: {
+      type: [counter],
+      optional: true
+  },
+  playerConditions: {
+      type: [condition],
+      optional: true
   }
 });
 
 Games.attachSchema(Games.schema);
 
-Factory.define('game', Games, {
-  gameTitle: () => 'Game title',
-  gamePhrasePublic: () => 'Public game phrase',
-  gamePhrasePrivate: () => 'Private game phrase',
-  gameType: () => 'Type of game',
-  gameWinner: () => 'Winner of game',
-  gameData: () => 'Metadata of game',
-});

@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 import gameEditor from '../../modules/game-editor.js';
 
 export default class GameEditor extends React.Component {
   componentDidMount() {
+    Meteor.subscribe('gameModel.list');
     gameEditor({ component: this });
     setTimeout(() => { document.querySelector('[name="gameTitle"]').focus(); }, 0);
   }
@@ -25,39 +27,16 @@ export default class GameEditor extends React.Component {
           placeholder="My awesome game"
         />
       </FormGroup>
-      <FormGroup controlId="formControlsSelect">
-        <ControlLabel>Game Type</ControlLabel>
-        <FormControl componentClass="select" placeholder="select game type" name="gameType">
-          <option>select</option>
-          <option value="leaderboard">Leader Board</option>
-          <option value="pingpong">Ping Pong</option>
-        </FormControl>
-      </FormGroup>
       <FormGroup>
-        <ControlLabel>Public Game Phrase</ControlLabel>
+        <ControlLabel>Game Model</ControlLabel>
+        <Link to={'/ModelEditor'}>
+            <Button bsStyle="primary" className="modifier-button">
+                <i className="fa fa-plus"></i>
+            </Button>
+        </Link>
         <FormControl
           type="text"
-          name="gamePhrasePublic"
-          defaultValue={ doc && doc.gamePhrasePublic }
-          placeholder="jubilantPrancingReindeer"
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Private Game Phrase</ControlLabel>
-        <FormControl
-          type="text"
-          name="gamePhrasePrivate"
-          defaultValue={ doc && doc.gamePhrasePrivate }
-          placeholder="awkwardRedGoat"
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>gameWinner</ControlLabel>
-        <FormControl
-          type="text"
-          name="gameWinner"
-          defaultValue={ doc && doc.gameWinner }
-          placeholder="If ya ain't first, yer last!"
+          name="modelName"
         />
       </FormGroup>
       <Button type="submit" bsStyle="success">
