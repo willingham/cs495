@@ -18,7 +18,8 @@ class ModelGame extends React.Component {
             modelName: this.props.modelName,
             teams: this.props.teams,
             playerConditions: this.props.playerConditions,
-            playerCounters: this.props.playerCounters
+            playerCounters: this.props.playerCounters,
+            isPrivate: (this.props.pagePhrase === this.props.privateGamePhrase)
         };
         this.addPlayer = this.addPlayer.bind(this);
         this.updatePlayerCounter = this.updatePlayerCounter.bind(this);
@@ -152,6 +153,7 @@ class ModelGame extends React.Component {
                                      updateTeamName={ this.updateTeamName }
                                      updatePlayerName={ this.updatePlayerName }
                                      deletePlayer={ this.deletePlayer }
+                                     isPrivateGame={ this.state.isPrivate }
                                      key={i}
                                      id={i} />
                     })}

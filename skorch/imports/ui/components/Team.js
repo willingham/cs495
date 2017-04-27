@@ -28,26 +28,29 @@ const evalValueCounter = (code, team) => {
 }
 
 const Modifier = (props) => {
-    return <Button 
+    return <Button
                 className="modifier-button"
-                bsStyle="primary" 
+                bsStyle="primary"
                 onClick={props.handleClick}>{props.btnText}</Button>;
 }
 
 const Modifiers = (props) => {
+  if (props.isPrivateGame)
     return (
         <div className="row modifier-buttons">
             { props.modifiers && props.modifiers.map((modifier, i) => {
-                return <Modifier 
+                return <Modifier
                     btnText={modifier.btnText}
-                    handleClick={handleModifier(modifier.code, 
+                    handleClick={handleModifier(modifier.code,
                                                 props.value,
                                                 props.updateInfo,
                                                 props.updateCounter)}
                     key={i} />
               }) }
         </div>
-    )
+    );
+  else
+    return null;
 }
 
 const PlayerCounter = (props) => {
@@ -60,7 +63,8 @@ const PlayerCounter = (props) => {
                     modifiers={props.modifiers}
                     value={props.counterValue}
                     updateInfo = {props.updateInfo}
-                    updateCounter={props.updateCounter}/>
+                    updateCounter={props.updateCounter}
+                    isPrivateGame={props.isPrivateGame} />
             </div>
         </div>
     );
@@ -80,10 +84,22 @@ const PlayerCounters = (props) => {
                                 counterId: i,
                              }}
                              updateCounter={props.updateCounter}
+                              isPrivateGame={props.isPrivateGame}
                 />
               }) }
         </div>
     );
+}
+
+const PlayerEditButtons = (props) => {
+  if (props.isPrivateGame)
+    return (
+      <div>
+        <Button className="pull-right" onClick={ () => props.updatePlayerName(props.updateInfo.teamId, props.updateInfo.playerId, prompt("New Player Name", props.playerName)) }><i className="fa fa-pencil"></i></Button>
+        <Button className="pull-right" onClick={ () => props.deletePlayer(props.updateInfo.teamId, props.updateInfo.playerId) }><i className="fa fa-trash"></i></Button>
+      </div>
+    );
+  else return null;
 }
 
 const Player = (props) => {
@@ -96,16 +112,21 @@ const Player = (props) => {
                             <h4>{props.playerName}</h4>
                         </div>
                         <div className="col-lg-3">
-                            <Button className="pull-right" onClick={ () => props.updatePlayerName(props.updateInfo.teamId, props.updateInfo.playerId, prompt("New Player Name", props.playerName)) }><i className="fa fa-pencil"></i></Button>
-                            <Button className="pull-right" onClick={ () => props.deletePlayer(props.updateInfo.teamId, props.updateInfo.playerId) }><i className="fa fa-trash"></i></Button>
+                          <PlayerEditButtons
+                            isPrivateGame={props.isPrivateGame}
+                            updateInfo={props.updateInfo}
+                            updatePlayerName={props.updatePlayerName}
+                            deletePlayer={props.deletePlayer}
+                            playerName={props.playerName} />
                         </div>
                     </div>
                 </div>
                 <div className="panel-body">
-                    <PlayerCounters 
+                    <PlayerCounters
                         updateInfo = {props.updateInfo}
                         updateCounter={props.updateCounter}
-                        counters={props.counters} />
+                        counters={props.counters}
+                        isPrivateGame={props.isPrivateGame}/>
                 </div>
             </div>
         </div>
@@ -126,6 +147,7 @@ const Players = (props) => {
                                updateCounter={props.updateCounter}
                                updatePlayerName={props.updatePlayerName}
                                deletePlayer={props.deletePlayer}
+                               isPrivateGame={props.isPrivateGame}
                        />;
               }) }
         </div>
@@ -143,11 +165,12 @@ const TeamCounter = (props) => {
                     <h4>{props.counterName}</h4>
                 </div>
             </div>
-            <Modifiers 
+            <Modifiers
                 updateInfo = {props.updateInfo}
                 updateCounter={props.updateCounter}
                 value = {props.counterValue}
-                modifiers={props.modifiers} />
+                modifiers={props.modifiers}
+                isPrivateGame={props.isPrivateGame} />
         </div>
     );
 }
@@ -167,10 +190,28 @@ const TeamCounters = (props) => {
                                 counterId: i,
                              }}
                              updateCounter={props.updateCounter}
+                             isPrivateGame={props.isPrivateGame}
                 />
               }) }
         </div>
     );
+}
+
+const EditTeamButton = (props) => {
+  if (props.isPrivateGame)
+    return (
+      <Button className="pull-right" onClick={ () => props.updateTeamName(props.id, prompt("New Team Name", props.name)) }><i className="fa fa-pencil"></i></Button>
+    );
+  else
+    return null;
+};
+const AddPlayerButton = (props) => {
+  if (props.isPrivateGame)
+    return (
+      <Button onClick={ () => props.addPlayer(props.id, prompt('New Player Name')) }>+ Add Player</Button>
+    );
+  else
+    return null;
 }
 
 const Team = (props) => {
@@ -183,26 +224,36 @@ const Team = (props) => {
                             <h2>{props.name}</h2>
                         </div>
                         <div className="col-lg-3">
-                            <Button className="pull-right" onClick={ () => props.updateTeamName(props.id, prompt("New Team Name", props.name)) }><i className="fa fa-pencil"></i></Button>
+                          <EditTeamButton
+                            isPrivateGame={props.isPrivateGame}
+                            updateTeamName={props.updateTeamName}
+                            id={props.id}
+                            name={props.name}
+                          />
                         </div>
                     </div>
                 </div>
                 <div className="panel-body">
-                    <TeamCounters 
+                    <TeamCounters
                         updateInfo = {{teamId: props.id}}
                         updateCounter={props.updateTeamCounter}
                         team={props.team}
-                        counters={props.counters} />
-                    
-                    <Players 
+                        counters={props.counters}
+                        isPrivateGame={props.isPrivateGame} />
+
+                    <Players
                         updateInfo = {{teamId: props.id}}
                         updateCounter={props.updatePlayerCounter}
                         updatePlayerName={props.updatePlayerName}
                         deletePlayer={props.deletePlayer}
-                        players={props.players} />
+                        players={props.players}
+                        isPrivateGame={props.isPrivateGame} />
                 </div>
                 <div className="panel-footer">
-                    <Button onClick={ () => props.addPlayer(props.id, prompt('New Player Name')) }>+ Add Player</Button>
+                  <AddPlayerButton
+                    isPrivateGame={props.isPrivateGame}
+                    addPlayer={props.addPlayer}
+                  />
                 </div>
             </div>
         </div>
