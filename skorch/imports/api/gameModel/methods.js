@@ -29,6 +29,13 @@ export const getGameModelById = (id) => {
 export const getGameModelByTitle = (title) => {
   return GameModel.findOne({title:title});
 };
+export const getAllGameTitles = () => {
+  let arr = [];
+  let all = GameModel.find().forEach(function(obj) {
+    arr.push(obj.title);
+  });
+  return arr;
+}
 
 export const getModelByName = (name) => {
     model = GameModel.findOne({title:name});

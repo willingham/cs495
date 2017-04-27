@@ -8,3 +8,7 @@ Meteor.publish('gameModel.view', (_id) => {
   check(_id, String);
   return GameModel.find(_id);
 });
+
+Meteor.methods({'getallgamemodelnames': () => {
+  return GameModel.rawCollection().distinct("title");
+}});

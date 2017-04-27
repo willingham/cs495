@@ -251,6 +251,7 @@ const Team = (props) => {
                 </div>
                 <div className="panel-footer">
                   <AddPlayerButton
+                    id={props.id}
                     isPrivateGame={props.isPrivateGame}
                     addPlayer={props.addPlayer}
                   />
