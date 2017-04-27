@@ -46,3 +46,16 @@ html {
 .modifier-button {
     margin: 3px;
 }
+
+.panel-heading h4 {
+    display: inline-block;
+}
+
+.table-cell {
+    display: table-cell;
+    height: 100%;
+}
+
+.table-cell button {
+    vertical-align: center;
+}

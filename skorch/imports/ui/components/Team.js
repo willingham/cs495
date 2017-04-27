@@ -2,11 +2,11 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
 
-const handleModifier = (code, teamId, playerId, counterId, value, update) => {
+const handleModifier = (code, value, updateInfo, updateFn) => {
     return () => {
         const toEval = "(function() { return " + code + ";})"
         const fn = eval(toEval).bind({value: value});
-        update(teamId, playerId, counterId, fn());
+        updateFn(updateInfo, fn());
     };
 }
 
@@ -24,10 +24,8 @@ const Modifiers = (props) => {
                 return <Modifier 
                     btnText={modifier.btnText}
                     handleClick={handleModifier(modifier.code, 
-                                                props.teamId,
-                                                props.playerId,
-                                                props.counterId,
                                                 props.value,
+                                                props.updateInfo,
                                                 props.updateCounter)}
                     key={i} />
               }) }
@@ -43,11 +41,9 @@ const PlayerCounter = (props) => {
             <div className="col-lg-7 col-xs-6">
                 <Modifiers
                     modifiers={props.modifiers}
-                    teamId={props.teamId}
-                    playerId={props.playerId}
-                    counterId={props.counterId}
-                    updateCounter={props.updateCounter}
-                    value={props.counterValue}/>
+                    value={props.counterValue}
+                    updateInfo = {props.updateInfo}
+                    updateCounter={props.updateCounter}/>
             </div>
         </div>
     );
@@ -61,9 +57,11 @@ const PlayerCounters = (props) => {
                              counterName={counter.name}
                              modifiers={counter.modifiers}
                              key={i}
-                             teamId={props.teamId}
-                             playerId={props.playerId}
-                             counterId={i}
+                             updateInfo={{
+                                teamId: props.updateInfo.teamId,
+                                playerId: props.updateInfo.playerId,
+                                counterId: i,
+                             }}
                              updateCounter={props.updateCounter}
                 />
               }) }
@@ -75,11 +73,20 @@ const Player = (props) => {
     return (
         <div className="col-lg-12">
             <div className="panel panel-info">
-                <div className="panel-heading"><h4 onClick={ () => props.updatePlayerName(props.teamId, props.playerId, prompt("New Player Name")) }>{props.playerName}</h4></div>
+                <div className="panel-heading">
+                    <div className="row">
+                        <div className="col-lg-6 col-lg-offset-3">
+                            <h4>{props.playerName}</h4>
+                        </div>
+                        <div className="col-lg-3">
+                            <Button className="pull-right" onClick={ () => props.updatePlayerName(props.updateInfo.teamId, props.updateInfo.playerId, prompt("New Player Name", props.playerName)) }><i className="fa fa-pencil"></i></Button>
+                            <Button className="pull-right" onClick={ () => props.deletePlayer(props.updateInfo.teamId, props.updateInfo.playerId) }><i className="fa fa-trash"></i></Button>
+                        </div>
+                    </div>
+                </div>
                 <div className="panel-body">
                     <PlayerCounters 
-                        teamId={props.teamId} 
-                        playerId={props.playerId}
+                        updateInfo = {props.updateInfo}
                         updateCounter={props.updateCounter}
                         counters={props.counters} />
                 </div>
@@ -95,10 +102,13 @@ const Players = (props) => {
                 return <Player playerName={player.name}
                                counters={player.counters}
                                key={i}
-                               playerId={i}
+                               updateInfo={{
+                                  teamId: props.updateInfo.teamId,
+                                  playerId: i,
+                               }}
                                updateCounter={props.updateCounter}
                                updatePlayerName={props.updatePlayerName}
-                               teamId={props.teamId}
+                               deletePlayer={props.deletePlayer}
                        />;
               }) }
         </div>
@@ -116,7 +126,11 @@ const TeamCounter = (props) => {
                     <h4>{props.counterName}</h4>
                 </div>
             </div>
-            <Modifiers modifiers={props.modifiers} />
+            <Modifiers 
+                updateInfo = {props.updateInfo}
+                updateCounter={props.updateCounter}
+                value = {props.counterValue}
+                modifiers={props.modifiers} />
         </div>
     );
 }
@@ -129,6 +143,11 @@ const TeamCounters = (props) => {
                              counterName={counter.name}
                              modifiers={counter.modifiers}
                              key={i}
+                             updateInfo={{
+                                teamId: props.updateInfo.teamId,
+                                counterId: i,
+                             }}
+                             updateCounter={props.updateCounter}
                 />
               }) }
         </div>
@@ -140,15 +159,26 @@ const Team = (props) => {
         <div className="col-lg-6 team">
             <div className="panel panel-primary">
                 <div className="panel-heading">
-                    <h2 onClick={ () => props.updateTeamName(props.id, prompt("New Team Name")) }>{props.name}</h2>
+                    <div className="row">
+                        <div className="col-lg-6 col-lg-offset-3">
+                            <h2>{props.name}</h2>
+                        </div>
+                        <div className="col-lg-3">
+                            <Button className="pull-right" onClick={ () => props.updateTeamName(props.id, prompt("New Team Name", props.name)) }><i className="fa fa-pencil"></i></Button>
+                        </div>
+                    </div>
                 </div>
                 <div className="panel-body">
-                    <TeamCounters counters={props.counters} />
+                    <TeamCounters 
+                        updateInfo = {{teamId: props.id}}
+                        updateCounter={props.updateTeamCounter}
+                        counters={props.counters} />
                     
                     <Players 
-                        teamId={props.id}
+                        updateInfo = {{teamId: props.id}}
                         updateCounter={props.updatePlayerCounter}
                         updatePlayerName={props.updatePlayerName}
+                        deletePlayer={props.deletePlayer}
                         players={props.players} />
                 </div>
                 <div className="panel-footer">

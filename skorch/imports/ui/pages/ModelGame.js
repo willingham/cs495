@@ -22,8 +22,10 @@ class ModelGame extends React.Component {
         };
         this.addPlayer = this.addPlayer.bind(this);
         this.updatePlayerCounter = this.updatePlayerCounter.bind(this);
+        this.updateTeamCounter = this.updateTeamCounter.bind(this);
         this.updateTeamName = this.updateTeamName.bind(this);
         this.updatePlayerName = this.updatePlayerName.bind(this);
+        this.deletePlayer = this.deletePlayer.bind(this);
     }
 
     addPlayer(id, name) {
@@ -33,7 +35,6 @@ class ModelGame extends React.Component {
             counters: JSON.parse(JSON.stringify(this.state.playerCounters)),
             conditions: JSON.parse(JSON.stringify(this.state.playerConditions)),
         });
-        // this.setState({ teams: teams });
         const upsert = {
             _id: this.state.id,
             teams: teams,
@@ -47,9 +48,9 @@ class ModelGame extends React.Component {
         });
     }
 
-    updatePlayerCounter(teamId, playerId, counterId, value) {
+    updatePlayerCounter(info, value) {
         let teams = this.state.teams.slice();
-        teams[teamId].players[playerId].counters[counterId].value = value;
+        teams[info.teamId].players[info.playerId].counters[info.counterId].value = value;
         const upsert = {
             _id: this.state.id,
             teams: teams
@@ -59,7 +60,20 @@ class ModelGame extends React.Component {
                 Bert.alert(error.reason, 'danger');
             }
         });
+    }
 
+    updateTeamCounter(info, value) {
+        let teams = this.state.teams.slice();
+        teams[info.teamId].counters[info.counterId].value = value;
+        const upsert = {
+            _id: this.state.id,
+            teams: teams
+        };
+        upsertGame.call(upsert, (error, response) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            }
+        });
     }
 
     updateTeamName(teamId, name) {
@@ -90,6 +104,20 @@ class ModelGame extends React.Component {
         });
     }
 
+    deletePlayer(teamId, playerId) {
+        let teams = this.state.teams.slice();
+        teams[teamId].players.splice(playerId, 1);
+        const upsert = {
+            _id: this.state.id,
+            teams: teams
+        }
+        upsertGame.call(upsert, (error, response) => {
+            if (error) {
+                Bert.alert(error.reason, 'danger');
+            }
+        });
+    }
+        
     render() {
         return (
             <div>
@@ -119,8 +147,10 @@ class ModelGame extends React.Component {
                                      players={ team.players }
                                      addPlayer={ this.addPlayer }
                                      updatePlayerCounter = { this.updatePlayerCounter }
+                                     updateTeamCounter = { this.updateTeamCounter }
                                      updateTeamName={ this.updateTeamName }
                                      updatePlayerName={ this.updatePlayerName }
+                                     deletePlayer={ this.deletePlayer }
                                      key={i} 
                                      id={i} />
                     })}
