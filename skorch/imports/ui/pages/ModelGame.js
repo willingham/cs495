@@ -31,7 +31,7 @@ class ModelGame extends React.Component {
     }
 
     componentWillMount() {
-        this.evalConditions();
+        this.setState({ teams: this.evalConditions(this.state.teams) });
     }
 
     addPlayer(id, name) {
@@ -41,6 +41,7 @@ class ModelGame extends React.Component {
             counters: JSON.parse(JSON.stringify(this.state.playerCounters)),
             conditions: JSON.parse(JSON.stringify(this.state.playerConditions)),
         });
+        teams = this.evalConditions(teams);
         const upsert = {
             _id: this.state.id,
             teams: teams,
@@ -57,6 +58,7 @@ class ModelGame extends React.Component {
     updatePlayerCounter(info, value) {
         let teams = this.state.teams.slice();
         teams[info.teamId].players[info.playerId].counters[info.counterId].value = value;
+        teams = this.evalConditions(teams);
         const upsert = {
             _id: this.state.id,
             teams: teams
@@ -71,6 +73,7 @@ class ModelGame extends React.Component {
     updateTeamCounter(info, value) {
         let teams = this.state.teams.slice();
         teams[info.teamId].counters[info.counterId].value = value;
+        teams = this.evalConditions(teams);
         const upsert = {
             _id: this.state.id,
             teams: teams
@@ -132,9 +135,7 @@ class ModelGame extends React.Component {
         }
     }
 
-    evalConditions() {
-        let teams = this.state.teams.slice();
-
+    evalConditions(teams) {
         teams.forEach((team) => {
             team.conditions.forEach((condition) => {
                 team.status = evalCondition(condition, team);
@@ -147,7 +148,7 @@ class ModelGame extends React.Component {
             });
         });
 
-        this.setState({ teams: teams });
+        return teams;
     }
 
     render() {
