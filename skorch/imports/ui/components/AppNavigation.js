@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navbar, Image } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Nav, Navbar, Image, NavItem } from 'react-bootstrap';
+import { Link} from 'react-router';
 import PublicNavigation from './PublicNavigation.js';
 import AuthenticatedNavigation from './AuthenticatedNavigation.js';
 
@@ -17,6 +17,9 @@ const AppNavigation = ({ hasUser }) => (
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
+    <Nav pullLeft>
+        <NavItem eventKey={1} href="https://willingham.github.io/cs495/">Design Site</NavItem>
+    </Nav>
       { renderNavigation(hasUser) }
     </Navbar.Collapse>
   </Navbar>
