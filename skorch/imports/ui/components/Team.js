@@ -1,31 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
-
-const handleModifier = (code, value, updateInfo, updateFn) => {
-    return () => {
-        const toEval = "(function() { return " + code + ";})"
-        const fn = eval(toEval).bind({value: value});
-        updateFn(updateInfo, fn());
-    };
-}
-
-const sumCounter = (name, team) => {
-    let total = 0;
-    team.players.forEach((player) => {
-        player.counters.filter((c) => c.name == name).forEach((counter) => {
-            total += counter.value;
-        });
-    });
-    return total;
-}
-
-const evalValueCounter = (code, team) => {
-    if (!code) return false;
-    const toEval = "(function() { return " + code + ";})";
-    const fn = eval(toEval).bind(team);
-    return fn();
-}
+import { evalValueCounter, handleModifier } from '../../modules/evaluator.js';
 
 const Modifier = (props) => {
     return <Button
@@ -84,7 +60,7 @@ const PlayerCounters = (props) => {
                                 counterId: i,
                              }}
                              updateCounter={props.updateCounter}
-                              isPrivateGame={props.isPrivateGame}
+                             isPrivateGame={props.isPrivateGame}
                 />
               }) }
         </div>
@@ -108,7 +84,12 @@ const Player = (props) => {
             <div className="panel panel-info">
                 <div className="panel-heading">
                     <div className="row">
-                        <div className="col-lg-6 col-lg-offset-3">
+                        <div className="col-lg-3">
+                            { props.status &&
+                                <h4>{ props.status }</h4>
+                            }
+                        </div>
+                        <div className="col-lg-6">
                             <h4>{props.playerName}</h4>
                         </div>
                         <div className="col-lg-3">
@@ -139,6 +120,7 @@ const Players = (props) => {
             { props.players.map((player, i) => {
                 return <Player playerName={player.name}
                                counters={player.counters}
+                               status={player.status}
                                key={i}
                                updateInfo={{
                                   teamId: props.updateInfo.teamId,
@@ -220,7 +202,14 @@ const Team = (props) => {
             <div className="panel panel-primary">
                 <div className="panel-heading">
                     <div className="row">
-                        <div className="col-lg-6 col-lg-offset-3">
+                        <div className="col-lg-3">
+                            { props.status &&
+                                 <div>
+                                    <h3>{props.status}</h3>
+                                 </div>
+                             }
+                        </div>
+                        <div className="col-lg-6">
                             <h2>{props.name}</h2>
                         </div>
                         <div className="col-lg-3">

@@ -33,7 +33,6 @@ const GetGamePage = (game) => { /* returns component of correct game type */
 };
 
 const AddGameButton = (phrase) => {  /* button for adding game to user profile */
-    console.log(phrase);
     if (Meteor.user()) {
         if (gameExistsInUserAccount(phrase.phrase)) {
             return <Button className="pull-right" onClick={ () => { removeGameFromUserAccount(phrase.phrase) } }>Remove</Button>

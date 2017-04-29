@@ -5,7 +5,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { upsertGame, removeGame, gamePhraseType } from '../../api/games/methods.js';
 import { addGameToUserAccount, gameExistsInUserAccount, removeGameFromUserAccount } from '../../api/user/methods.js';
 import Team from  '../components/Team.js';
-
+import { evalCondition } from '../../modules/evaluator.js';
 
 class ModelGame extends React.Component {
     constructor(props) {
@@ -28,6 +28,10 @@ class ModelGame extends React.Component {
         this.updatePlayerName = this.updatePlayerName.bind(this);
         this.deletePlayer = this.deletePlayer.bind(this);
         this.displayPrivateGamePhrase = this.displayPrivateGamePhrase.bind(this);
+    }
+
+    componentWillMount() {
+        this.evalConditions();
     }
 
     addPlayer(id, name) {
@@ -128,6 +132,24 @@ class ModelGame extends React.Component {
         }
     }
 
+    evalConditions() {
+        let teams = this.state.teams.slice();
+
+        teams.forEach((team) => {
+            team.conditions.forEach((condition) => {
+                team.status = evalCondition(condition, team);
+            });
+
+            team.players.forEach((player) => {
+                player.conditions.forEach((condition) => {
+                    player.status = evalCondition(condition, player);
+                });
+            });
+        });
+
+        this.setState({ teams: teams });
+    }
+
     render() {
         return (
             <div>
@@ -165,6 +187,7 @@ class ModelGame extends React.Component {
                                      updatePlayerName={ this.updatePlayerName }
                                      deletePlayer={ this.deletePlayer }
                                      isPrivateGame={ this.state.isPrivate }
+                                     status={ team.status }
                                      key={i}
                                      id={i} />
                     })}

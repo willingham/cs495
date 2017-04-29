@@ -38,9 +38,6 @@
     <block type="tagmyteam">
       <field name="tag">tag</field>
     </block>
-    <block type="tagotherteam">
-      <field name="tag">tag</field>
-    </block>
   </category>
   <category name="Math">
     <block type="math_arithmetic">

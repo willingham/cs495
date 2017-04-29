@@ -187,7 +187,7 @@ Blockly.Blocks['dqplayer'] = {
 Blockly.Blocks['tagmyteam'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("tag my team")
+        .appendField("tag me")
         .appendField(new Blockly.FieldTextInput("tag"), "tag");
     this.setOutput(true, "event");
     this.setColour(315);

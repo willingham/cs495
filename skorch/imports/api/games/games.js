@@ -18,34 +18,36 @@ Games.deny({
 });
 
 const condition = new SimpleSchema({
-    condition: { type: String, optional: true },
-    code: { type: String, optional: true }
+  condition: { type: String, optional: true },
+  code: { type: String, optional: true }
 })
 
 let modifier = new SimpleSchema({
-    btnText: { type: String, optional: true },
-    alexaCommand: { type: String, optional: true },
-    code: { type: String, optional: true }
+  btnText: { type: String, optional: true },
+  alexaCommand: { type: String, optional: true },
+  code: { type: String, optional: true }
 });
 
 let counter = new SimpleSchema({
-    value: { type: Number, optional: true },
-    name: { type: String },
-    modifiers: { type: [modifier], optional: true},
-    code: { type: String, optional: true }
+  value: { type: Number, optional: true },
+  name: { type: String },
+  modifiers: { type: [modifier], optional: true},
+  code: { type: String, optional: true }
 });
 
 let player = new SimpleSchema({
-    name: { type: String },
-    conditions: { type: [condition], optional: true },
-    counters: { type: [counter], optional: true }
+  name: { type: String },
+  conditions: { type: [condition], optional: true },
+  counters: { type: [counter], optional: true },
+  status: { type: String, optional: true }
 })
 
 let team = new SimpleSchema({
   name: { type:String },
   counters: { type: [counter], optional: true },
   conditions: { type: [condition], optional: true },
-  players: { type: [player], optional: true }
+  players: { type: [player], optional: true },
+  status: { type: String, optional: true }
 });
 
 Games.schema = new SimpleSchema({
