@@ -1,5 +1,6 @@
 # Skorch
 Keep the score of anything with Skorch.  Build models for new types of games.
+
 By: Will Harrison, Cody Henderson, Nath Tumlin, and Thomas Willingham
 
 ## Installation (main application)
